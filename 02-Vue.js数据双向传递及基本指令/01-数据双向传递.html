@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Vue.js模板</title>
+    <script src='./js/vue.js'></script>
+</head>
+
+<body>
+    <!-- MVVM中的View视图 -->
+    <div id='app'>
+        <p>{{name}}</p>
+        <input type="text" v-model="msg">
+    </div>
+    <script>
+        // MVVM中的VM
+        let vue = new Vue({
+            el: '#app',
+            // MVVM中的model模型数据
+            data: {
+                name: 'lmm',
+                msg: 'study vue.js'
+            }
+        });
+    </script>
+</body>
+
+</html>

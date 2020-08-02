@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Vue.js模板</title>
+    <script src='./js/vue.js'></script>
+</head>
+
+<body>
+    <div id='app'>
+        <!--v-text会覆盖原有内容，不解析html -->
+        <p v-text="name">+++</p>
+        <!--v-html会覆盖原有内容，解析html -->
+        <p v-html="name">===</p>
+
+    </div>
+    <script>
+        let vue = new Vue({
+            el: '#app',
+            data: {
+                name: '<span>hello</span>'
+            }
+        });
+    </script>
+</body>
+
+</html>

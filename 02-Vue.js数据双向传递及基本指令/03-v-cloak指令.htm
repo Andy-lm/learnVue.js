@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Vue.js模板</title>
+    <style>
+        /* 属性选择器[v-cloak]在未绑定前先隐藏该内容，在绑定后再自动显示 */
+        [v-cloak] {
+            display: none;
+        }
+
+        p {
+            color: aqua;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='app'>
+        <p v-cloak>{{name}}</p>
+    </div>
+    <script src='./js/vue.js'></script>
+    <script>
+        // 将绑定后的数据直接渲染出来，绑定前处于隐藏状态
+        let vue = new Vue({
+            el: '#app',
+            data: {
+                name: 'lmm'
+            }
+        });
+    </script>
+</body>
+
+</html>

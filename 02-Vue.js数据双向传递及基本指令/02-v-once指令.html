@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Vue.js模板</title>
+    <script src='./js/vue.js'></script>
+</head>
+
+<body>
+    <!-- v-once指令：让界面不要跟着数据变化，只渲染一次 -->
+    <div id='app'>
+        <p v-once>原始数据：{{name}}</p>
+        <p>当前数据：{{name}}</p>
+    </div>
+    <script>
+        let vue = new Vue({
+            el: '#app',
+            data: {
+                name: 'lmm'
+            }
+        });
+    </script>
+</body>
+
+</html>
