@@ -10,11 +10,14 @@
 
 <body>
     <div id='app'>
-        <p v-if="show">{{name}}</p>
+        <!-- <p v-if="show">{{name}}</p>
         <p v-if="hidden">{{name}}</p>
         <p v-if="true">{{name}}</p>
-        <p v-if="false">{{name}}</p>
-        <p v-if="age >= 18">{{name}}</p>
+        <p v-if="false">{{name}}</p> -->
+        <!-- <p v-if="age >= 18">{{name}}</p> -->
+        <p v-if="score >= 80">优秀</p>
+        <p v-else-if="score >= 60">良好</p>
+        <p v-else>差</p>
     </div>
     <script>
         let vue = new Vue({
@@ -23,7 +26,9 @@
                 name: 'lmm',
                 show: true,
                 hidden: false,
-                age: 18
+                age: 18,
+                score: 55
+
             }
         });
     </script>
