@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Vue.js模板</title>
+    <script src='./js/vue.js'></script>
+</head>
+
+<body>
+    <div id='app1'>
+        <p v-color="curColor" v-size="normal">我是段落</p>
+    </div>
+    <div id='app2'>
+        <p v-color="curColor" v-size="normal">我是段落</p>
+    </div>
+    <script>
+        // 自定义全局指令
+        // Vue.directive("color", {
+        //     bind: function (el, binding) {
+        //         el.style.color = binding.value;
+        //     }
+        // })
+        let vue1 = new Vue({
+            el: '#app1',
+            data: {
+                curColor: "red",
+                normal: "80px"
+            },
+            methods: {
+
+            },
+            // directives里存放当前区域的所有指令
+            directives: {
+                "color": {
+                    bind: function (el, binding) {
+                        el.style.color = binding.value;
+                    }
+                },
+                "size": {
+                    bind: function (el, binding) {
+                        el.style.fontSize = binding.value
+                    }
+                }
+            }
+        });
+        let vue2 = new Vue({
+            el: '#app2',
+            data: {
+                curColor: "blue",
+                normal: "80px"
+            },
+            methods: {
+
+            },
+            // directives里存放当前区域的所有指令
+            directives: {
+                "color": {
+                    bind: function (el, binding) {
+                        el.style.color = binding.value;
+                    }
+                },
+                "size": {
+                    bind: function (el, binding) {
+                        el.style.fontSize = binding.value
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

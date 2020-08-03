@@ -5,18 +5,49 @@
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <title>Vue.js模板</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .size {
+            font-size: 100px;
+        }
+
+        .color {
+            color: blue;
+        }
+
+        .bg {
+            background-color: blueviolet;
+        }
+    </style>
     <script src='./js/vue.js'></script>
 </head>
 
 <body>
     <div id='app'>
-        <p>我是段落</p>
+        <!-- 只有以:class="['class1']"格式，才会在style中查找 -->
+        <!-- 也可以组合三目运算符来使用 -->
+        <!-- <p :class="['size','color',flag?'bg':'']">我是段落</p> -->
+        <!-- 也可以与对象组合来使用 -->
+        <!-- <p :class="['size','color',{'bg':false}]">我是段落</p> -->
+        <!-- 可以直接赋值是个对象 -->
+        <!-- <p :class="obj">我是段落</p> -->
+        <p :class="{'size': true,'color': true,'bg': true}">我是段落</p>
     </div>
     <script>
         let vue = new Vue({
             el: '#app',
             data: {
-                name: 'lmm'
+                name: 'lmm',
+                flag: false,
+                obj: {
+                    'size': true,
+                    'color': true,
+                    'bg': true
+                }
             }
         });
     </script>

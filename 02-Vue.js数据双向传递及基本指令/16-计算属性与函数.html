@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Vue.js模板</title>
+    <script src='./js/vue.js'></script>
+</head>
+
+<body>
+    <div id='app'>
+        <!-- <p>{{msg.split("").reverse().join("")}}</p> -->
+        <p @click="fn">{{msg2}}</p>
+        <p @click="fn">{{msg2}}</p>
+        <p @click="fn">{{msg2}}</p>
+        <p @click="fn">{{fn2()}}</p>
+        <p @click="fn">{{fn2()}}</p>
+        <p @click="fn">{{fn2()}}</p>
+    </div>
+    <script>
+        let vue = new Vue({
+            el: '#app',
+            data: {
+                msg: "abcdefg"
+            },
+            // 用于定义绑定事件与函数
+            methods: {
+                fn: function () {
+                    console.log(1111111);
+                },
+                // 特点：函数在每次调用时都会执行
+                fn2: function () {
+                    console.log("函数被执行了");
+                    let str = 'abcdefg';
+                    return str.split("").reverse().join("+");
+                }
+            },
+            // 用于定义计算属性
+            computed: {
+                // 特点：只要返回的结果没有发生变化，那么计算属性只会被执行一次，可以提高性能
+                msg2: function () {
+                    console.log("计算属性被执行了");
+                    let str = 'abcdefg';
+                    return str.split("").reverse().join("=");
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
