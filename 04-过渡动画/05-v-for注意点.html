@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Vue.js模板</title>
+    <script src='./js/vue.js'></script>
+</head>
+
+<body>
+    <div id='app'>
+        <input type="text" v-model="person.name">
+        <input type="submit" value="添加" @click.prevent="add()">
+        <ul>
+            <!-- v-for的渲染机制：在渲染元素的时候首先会在缓存中查找有没有需要渲染的元素
+            如果没有会在缓存中创建一个新的并将其渲染出来，如果有那么会直接复用原有的
+            注意：在Vue中只要数据一改变就会重新渲染一次 -->
+            <li v-for="(person,index) in persons" :key="person.id"><input type="checkbox">{{index}}---{{person.name}}
+            </li>
+        </ul>
+    </div>
+    <script>
+        let vue = new Vue({
+            el: '#app',
+            data: {
+                persons: [{ name: 'zs', id: 0 }, { name: 'ls', id: 1 }, { name: 'ww', id: 2 }],
+                person: {
+                    name: ""
+                }
+            },
+            methods: {
+                add() {
+                    let lastId = this.persons[this.persons.length - 1].id;
+                    this.person.id = lastId + 1;
+                    this.persons.unshift(this.person);
+                    this.person = {
+                        name: "",
+                    };
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

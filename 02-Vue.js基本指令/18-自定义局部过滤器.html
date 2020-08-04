@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Vue.js模板</title>
+    <script src='./js/vue.js'></script>
+</head>
+
+<body>
+    <div id='app1'>
+        <p>{{name | formartStr}}</p>
+    </div>
+    <div id='app2'>
+        <p>{{name | formartStr}}</p>
+    </div>
+    <script>
+        // 自定义局部过滤器只能在定义区域使用
+        let vue1 = new Vue({
+            el: '#app1',
+            data: {
+                name: 'lmm'
+            },
+            filters: {
+                "formartStr": function (value) {
+                    value = value.replace(/m/g, "+++");
+                    return value;
+                }
+            }
+        });
+        let vue2 = new Vue({
+            el: '#app2',
+            data: {
+                name: 'lmm'
+            },
+        });
+    </script>
+</body>
+
+</html>

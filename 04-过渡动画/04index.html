@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Vue.js模板</title>
+    <script src='./js/vue.js'></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            width: 200px;
+            height: 200px;
+            background-color: darkgreen;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <div id='app'>
+        <button @click="toggle">我是按钮</button>
+        <!-- 自定义过渡类名 -->
+        <transition appear enter-class="" enter-to-class="" enter-active-class="animated bounceInRight">
+            <div class="box" v-show="isShow"></div>
+        </transition>
+
+    </div>
+    <script>
+        let vue = new Vue({
+            el: '#app',
+            data: {
+                isShow: true
+            },
+            methods: {
+                'toggle': function () {
+                    this.isShow = !this.isShow;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

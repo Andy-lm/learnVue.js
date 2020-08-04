@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Vue.js模板</title>
+    <script src='./js/vue.js'></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            width: 200px;
+            height: 200px;
+            background-color: darkgreen;
+        }
+
+        /* .one-enter {
+            opacity: 0;
+        }
+
+        .one-enter-to {
+            opacity: 1;
+        }
+
+        .one-enter-active {
+            transition: 1s all;
+        } */
+    </style>
+</head>
+
+<body>
+    <!-- 注意点：
+    1.一个transition标签只能放一个元素
+    2.如果需要在刷新页面时就显示动画效果可以给transition添加appear属性
+    3.可以给transition标签添加name=""属性修改类名前缀 -->
+    <div id='app'>
+        <button @click="toggle">我是按钮</button>
+        <transition appear v-bind:css="false" v-on:before-enter="beforeEnter" v-on:enter="enter"
+            v-on:after-enter="afterEnter">
+            <div class="box" v-show="isShow"></div>
+        </transition>
+
+    </div>
+    <script>
+        let vue = new Vue({
+            el: '#app',
+            data: {
+                isShow: true
+            },
+            methods: {
+                'toggle': function () {
+                    this.isShow = !this.isShow;
+                },
+                'beforeEnter': function (el) {
+                    console.log(1111);
+                    el.style.opacity = 0;
+                    el.style.marginLeft = "0";
+                },
+                'enter': function (el, done) {
+                    console.log(2222);
+                    el.offsetWidth;
+                    el.style.transition = "3s all";
+                    // 如果需要一刷新网页就有动画，需要将done()方法延时执行
+                    setTimeout(function () {
+                        done();
+                    }, 0)
+                },
+                'afterEnter': function (el) {
+                    console.log(3333);
+                    el.style.opacity = "1";
+                    el.style.marginLeft = "500px";
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

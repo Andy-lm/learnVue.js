@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Vue.js模板</title>
+    <script src='./js/vue.js'></script>
+</head>
+
+<body>
+    <div id='app'>
+        <!-- 也可以传递参数 -->
+        <p>{{date | dateFormart() }}</p>
+    </div>
+    <script>
+        // 自定义一个全局过滤器
+        Vue.filter("dateFormart", function (value, fmStr) {
+            let date = new Date(value);
+            let year = date.getFullYear();
+            let month = date.getMonth() + 1 + "";
+            let day = date.getDate() + "";
+            let hours = date.getHours() + "";
+            let minute = date.getMinutes() + "";
+            let second = date.getSeconds() + "";
+            if (fmStr === "年-月-日") {
+                return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+            }
+            return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")} ${hours.padStart(2, "0")}:${minute.padStart(2, "0")}:${second.padStart(2, "0")}`;
+        })
+        let vue = new Vue({
+            el: '#app',
+            data: {
+                date: Date.now()
+            }
+        });
+    </script>
+</body>
+
+</html>
