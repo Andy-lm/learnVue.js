@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Vue.js模板</title>
+    <script src='./js/vue.js'></script>
+</head>
+
+<body>
+    <!-- Vue的控制区域也相当于是一个大的组件可以使用data与methods -->
+    <div id='app'>
+        <p>{{name}}</p>
+        <abc></abc>
+    </div>
+    <template id="info">
+        <div>
+            <img src="./images/fox.jpg">
+            <p @click="abcFn()">{{abcMsg}}</p>
+        </div>
+    </template>
+    <script>
+        // 创建一个全局组件
+        Vue.component("abc", {
+            template: "#info",
+            methods: {
+                abcFn() {
+                    console.log("这是组件的描述信息");
+                }
+            },
+            // 自定义组件的data必须是一个方法，通过返回值来提供变量
+            data: function () {
+                return {
+                    abcMsg: "组件的描述信息"
+                }
+            }
+        })
+        let vue = new Vue({
+            el: '#app',
+            data: {
+                name: 'lmm'
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Vue.js模板</title>
+    <script src='./js/vue.js'></script>
+    <style>
+        .v-enter {
+            opacity: 0;
+            margin-left: 500px;
+        }
+
+        .v-enter-to {
+            opacity: 1;
+        }
+
+        .v-enter-active {
+            transition: 3s all;
+        }
+
+        .v-leave {
+            opacity: 1;
+        }
+
+        .v-leave-to {
+            opacity: 0;
+            margin-left: 500px;
+        }
+
+        .v-leave-active {
+            transition: 1s all;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 组件也是一个元素，可以通过v-if控制组件的显示与隐藏 -->
+    <div id='app'>
+        <button @click="toggle">切换</button>
+        <!-- 默认状态下进入动画和离开动画是同时执行的可以修改过渡模式 -->
+        <transition appear mode="out-in">
+            <!-- 动态组件keep-alive在隐藏时会将组件放到缓存中 -->
+            <keep-alive>
+                <component v-bind:is="currentComponent"></component>
+            </keep-alive>
+        </transition>
+    </div>
+    <template id="home">
+        <div>
+            <p>我是首页</p>
+            <input type="checkbox">
+        </div>
+    </template>
+    <template id="photo">
+        <div>
+            <img src="./images/fox.jpg">
+        </div>
+    </template>
+    <script>
+        Vue.component("home", {
+            template: "#home"
+        })
+        Vue.component("photo", {
+            template: "#photo"
+        })
+        let vue = new Vue({
+            el: '#app',
+            data: {
+                currentComponent: "home"
+            },
+            methods: {
+                toggle() {
+                    this.currentComponent = this.currentComponent === "home" ? "photo" : "home";
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

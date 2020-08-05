@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Vue.js模板</title>
+    <script src='./js/vue.js'></script>
+</head>
+
+<body>
+    <!-- 组件也是一个元素，可以通过v-if控制组件的显示与隐藏 -->
+    <div id='app'>
+        <button @click="toggle">切换</button>
+        <home v-if="isShow"></home>
+        <photo v-else></photo>
+        <!-- <p v-if="isShow">{{name}}</p>
+        <img src="./images/fox.jpg" v-else> -->
+    </div>
+    <template id="title">
+        <div>
+            <p>我是首页</p>
+        </div>
+    </template>
+    <template id="photo">
+        <div>
+            <img src="./images/fox.jpg">
+        </div>
+    </template>
+    <script>
+        Vue.component("home", {
+            template: "#title"
+        })
+        Vue.component("photo", {
+            template: "#photo"
+        })
+        let vue = new Vue({
+            el: '#app',
+            data: {
+                name: '这是首页',
+                isShow: true
+            },
+            methods: {
+                toggle() {
+                    this.isShow = !this.isShow;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

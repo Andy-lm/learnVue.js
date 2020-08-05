@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Vue.js模板</title>
+    <script src='./js/vue.js'></script>
+</head>
+
+<body>
+    <!-- 这是是视图区域 -->
+    <div id='app'>
+        <p>{{name}}</p>
+        <aaa></aaa>
+    </div>
+    <!-- <script id="info" type="text/html">
+        <div>
+            <img src="./images/fox.jpg">
+            <p>图片内容</p>
+        </div>
+    </script> -->
+    <!-- template标签为Vue自定义的模板标签，推荐使用 -->
+    <!-- 这里是模板区域 -->
+    <template id="info">
+        <div>
+            <img src="./images/fox.jpg">
+            <p>图片内容</p>
+        </div>
+    </template>
+    <script>
+        // let Profile = Vue.extend({
+        //     template: `
+        //     <div>
+        //     <img src="./images/fox.jpg">
+        //     <p>图片内容</p>
+        //     </div>
+        //     `
+        // });
+        // Vue.component("aaa", Profile);
+        // 直接给其传递一个对象也可以，Vue会自动调用extend方法
+        // Vue.component("aaa", {
+        //     template: `
+        //         <div>
+        //         <img src="./images/fox.jpg">
+        //         <p>图片内容</p>
+        //         </div>
+        //         `
+        // });
+        Vue.component('aaa', {
+            template: "#info"
+        });
+        let vue = new Vue({
+            el: '#app',
+            data: {
+                name: 'lmm'
+            }
+        });
+    </script>
+</body>
+
+</html>

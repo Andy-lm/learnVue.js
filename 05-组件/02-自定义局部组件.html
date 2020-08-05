@@ -11,12 +11,24 @@
 <body>
     <div id='app'>
         <p>{{name}}</p>
+        <abc></abc>
     </div>
+    <template id="info">
+        <div>
+            <img src="./images/fox.jpg">
+            <p>图片的描述信息</p>
+        </div>
+    </template>
     <script>
         let vue = new Vue({
             el: '#app',
             data: {
                 name: 'lmm'
+            },
+            components: {
+                'abc': {
+                    template: "#info"
+                }
             }
         });
     </script>
