@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Vue.js模板</title>
+    <script src='./js/vue.js'></script>
+</head>
+
+<body>
+    <!--
+    1.组件中的命名注意点
+    1.1注册组件的时候使用了"驼峰命名", 那么在使用时需要转换成"短横线分隔命名"
+    例如: 注册时: myFather  ->  使用时: my-father
+    1.2在传递参数的时候如果想使用"驼峰名称", 那么就必须写"短横线分隔命名"
+    例如: 传递时: parent-name="name" ->  接收时: props: ["parentName"]
+    1.3在传递方法的时候不能使用"驼峰命名", 只能用"短横线分隔命名"
+    @parent-say="say"  -> this.$emit("parent-say");
+    -->
+    <div id='app'>
+        <p>{{name}}</p>
+        <father></father>
+    </div>
+    <template id="father">
+        <div>
+            <p @click="say">我是父组件</p>
+            <son v-on:fathersay="say"></son>
+        </div>
+    </template>
+    <template id="son">
+        <div>
+            <p @click="sonsay">我是子组件</p>
+        </div>
+    </template>
+    <script>
+        let vue = new Vue({
+            el: '#app',
+            data: {
+                name: 'lmm'
+            },
+            components: {
+                "father": {
+                    template: "#father",
+                    methods: {
+                        say(data) {
+                            console.log("我是父组件", data);
+                        }
+                    },
+                    components: {
+                        "son": {
+                            template: "#son",
+                            methods: {
+                                sonsay() {
+                                    this.$emit('fathersay', "子组件传递给父组件的数据");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

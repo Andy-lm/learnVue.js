@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Vue.js模板</title>
+    <script src='./js/vue.js'></script>
+    <!-- 注意点：在导入Vuex之前必须先导入Vue -->
+    <script src="./js/vuex.js"></script>
+</head>
+
+<body>
+    <!-- 建议最好不要直接修改Vuex中的共享数据，因为当多个插件使用共享数据的时候
+         在报错时就难以排查到底是那个插件的方法使数据出现问题 -->
+    <div id='app'>
+        <father></father>
+    </div>
+    <template id="father">
+        <div>
+            <son1></son1>
+            <son2></son2>
+        </div>
+    </template>
+    <template id="son1">
+        <div>
+            <input type="text" :value="this.$store.state.count">
+            <button @click="add()">增加</button>
+            <button @click="minus()">减少</button>
+        </div>
+    </template>
+    <template id="son2">
+        <div>
+            <input type="text" :value="this.$store.state.count">
+            <button @click="add()">增加</button>
+            <button @click="minus()">减少</button>
+        </div>
+    </template>
+    <script>
+        const store = new Vuex.Store({
+            state: {
+                count: 0
+            },
+            // 这里保存用于修改共享数据的方法
+            mutations: {
+                mAdd(state) {
+                    state.count++;
+                },
+                mMinus(state) {
+                    state.count--;
+                }
+            }
+        })
+        let vue = new Vue({
+            el: '#app',
+            data: {
+
+            },
+            components: {
+                "father": {
+                    template: "#father",
+                    store: store,
+                    components: {
+                        "son1": {
+                            template: "#son1",
+                            methods: {
+                                add() {
+                                    // 在这里调用Vuex中修改共享数据的方法
+                                    this.$store.commit("mAdd");
+                                },
+                                minus() {
+                                    this.$store.commit("mMinus");
+                                }
+                            }
+                        },
+                        "son2": {
+                            template: "#son2",
+                            methods: {
+                                add() {
+                                    this.$store.commit("mAdd");
+                                },
+                                minus() {
+                                    this.$store.commit("mMinus");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

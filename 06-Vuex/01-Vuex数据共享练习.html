@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Vue.js模板</title>
+    <script src='./js/vue.js'></script>
+    <!-- 注意点：在导入Vuex之前必须先导入Vue -->
+    <script src="./js/vuex.js"></script>
+</head>
+
+<body>
+    <!--兄弟组件之间的数据共享-->
+    <!-- 在实际开发中有两个比较复杂的问题：
+         爷爷组件给孙子组件传递数据，兄弟组件之间传递数据 -->
+    <div id='app'>
+        <father></father>
+    </div>
+    <template id="father">
+        <div>
+            <son1 @fatherfn="countnum"></son1>
+            <son2 :siblingdata="viewnum"></son2>
+        </div>
+    </template>
+    <template id="son1">
+        <div>
+            <input type="text" :value="num">
+            <button @click="add()">增加</button>
+            <button @click="minus()">减少</button>
+        </div>
+    </template>
+    <template id="son2">
+        <div>
+            <p>{{siblingdata}}</p>
+        </div>
+    </template>
+    <script>
+        let vue = new Vue({
+            el: '#app',
+            data: {
+
+            },
+            components: {
+                "father": {
+                    template: "#father",
+                    data: function () {
+                        return {
+                            viewnum: 0
+                        }
+                    },
+                    methods: {
+                        countnum(newNum) {
+                            this.viewnum = newNum;
+                        }
+                    },
+                    components: {
+                        "son1": {
+                            template: "#son1",
+                            data: function () {
+                                return {
+                                    num: 0
+                                }
+                            },
+                            methods: {
+                                add() {
+                                    this.num++;
+                                    this.$emit("fatherfn", this.num);
+                                },
+                                minus() {
+                                    this.num--;
+                                    this.$emit("fatherfn", this.num);
+                                }
+                            }
+                        },
+                        "son2": {
+                            template: "#son2",
+                            data: function () {
+                                return {
+
+                                }
+                            },
+                            methods: {
+
+                            },
+                            props: ["siblingdata"]
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
