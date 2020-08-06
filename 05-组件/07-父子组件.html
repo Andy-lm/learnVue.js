@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Vue.js模板</title>
+    <script src='./js/vue.js'></script>
+</head>
+
+<body>
+    <div id='app'>
+        <p>{{name}}</p>
+        <father></father>
+    </div>
+    <template id="father">
+        <div>
+            <p>我是父组件</p>
+            <son></son>
+        </div>
+    </template>
+    <template id="son">
+        <div>
+            <p>我是子组件</p>
+        </div>
+    </template>
+    <script>
+        // Vue.component("father", {
+        //     template: "#father",
+        //     // 在父组件中定义了一个子组件
+        //     components: {
+        //         "son": {
+        //             template: "#son"
+        //         }
+        //     }
+        // })
+        let vue = new Vue({
+            el: '#app',
+            data: {
+                name: 'lmm'
+            },
+            components: {
+                "father": {
+                    template: "#father",
+                    // 在父组件中定义一个子组件
+                    components: {
+                        "son": {
+                            template: "#son"
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Vue.js模板</title>
+    <script src='./js/vue.js'></script>
+</head>
+
+<body>
+    <div id='app'>
+        <p>{{name}}</p>
+        <father></father>
+    </div>
+    <template id="father">
+        <div>
+            <p @click="say">我是父组件</p>
+            <son v-on:fathersay="say"></son>
+        </div>
+    </template>
+    <template id="son">
+        <div>
+            <p @click="sonsay">我是子组件</p>
+            <!-- 这里是子组件使用父组件传递来的数据 -->
+        </div>
+    </template>
+    <script>
+        let vue = new Vue({
+            el: '#app',
+            data: {
+                name: 'lmm'
+            },
+            components: {
+                "father": {
+                    template: "#father",
+                    methods: {
+                        say() {
+                            console.log("我是爸爸");
+                        }
+                    },
+                    components: {
+                        "son": {
+                            template: "#son",
+                            // 这里是通过props子组件接收父组件的数据
+                            methods: {
+                                sonsay() {
+                                    this.$emit('fathersay');
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
