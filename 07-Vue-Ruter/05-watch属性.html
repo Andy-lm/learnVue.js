@@ -29,13 +29,13 @@
 
 <body>
     <div id='app'>
-        <!-- 通过a标签切换hash值 -->
-        <!-- <a href="#/one">切换第一个界面</a>
-        <a href="#/two">切换第一个界面</a> -->
-        <!-- 可以通过router-link设置URL的hash值 -->
-        <router-link to="/one" tag="button">第一个界面</router-link>
-        <router-link to="/two" tag="button">第二个界面</router-link>
-        <!-- 通过router-view标签将匹配的组件渲染出来 -->
+        <!-- <input type="text" v-model="num1">
+        <span>+</span>
+        <input type="text" v-model="num2">
+        <span>=</span>
+        <input type="text" disabled v-model="res"> -->
+        <router-link to="/one" tag="button">切换到第一个界面</router-link>
+        <router-link to="/two" tag="button">切换到第二个界面</router-link>
         <router-view></router-view>
     </div>
     <template id="one">
@@ -59,7 +59,6 @@
         // 定义切换的规则(定义路由规则)
         const routes = [
             // 路由重定向：设置默认界面时的hash值
-            { path: '/', redirect: '/two' },
             { path: '/one', component: one },
             { path: '/two', component: two }
         ];
@@ -74,10 +73,31 @@
             // 绑定路由对象
             router: router,
             data: {
+                num1: 0,
+                num2: 0,
+                res: 0
+            },
+            methods: {
+
             },
             components: {
                 "one": one,
                 "two": two
+            },
+            // watch属性可以用于监听数据的变化
+            watch: {
+                // num1: function (newValue, oldVale) {
+                //     this.res = parseInt(this.num1) + parseInt(this.num2);
+                //     console.log(newValue, oldVale);
+                // },
+                // num2: function () {
+                //     this.res = parseInt(this.num1) + parseInt(this.num2);
+                // }
+
+                // 监听路由的变化,可以用于判断当前页面是从哪一个页面跳转过来的
+                "$route.path": function (newValue, oldVale) {
+                    console.log(newValue, oldVale);
+                }
             }
         });
     </script>

@@ -29,13 +29,10 @@
 
 <body>
     <div id='app'>
-        <!-- 通过a标签切换hash值 -->
-        <!-- <a href="#/one">切换第一个界面</a>
-        <a href="#/two">切换第一个界面</a> -->
-        <!-- 可以通过router-link设置URL的hash值 -->
-        <router-link to="/one" tag="button">第一个界面</router-link>
-        <router-link to="/two" tag="button">第二个界面</router-link>
-        <!-- 通过router-view标签将匹配的组件渲染出来 -->
+        <!-- Vue Route传递参数：通过URL地址传递参数 -->
+        <router-link to="/one?name=andy&age=18" tag="button">第一个界面</router-link>
+        <!-- 通过路由规则中占位符的方式与URL地址传递参数 -->
+        <router-link to="/two/lmm/22" tag="button">第二个界面</router-link>
         <router-view></router-view>
     </div>
     <template id="one">
@@ -51,17 +48,26 @@
     <script>
         //  定义需要切换的组件
         const one = {
-            template: "#one"
+            template: "#one",
+            created: function () {
+                // 在生命周期方法中通过this.$route.query获取通过URL地址传递来的参数
+                console.log(this.$route.query);
+            }
         }
         const two = {
-            template: "#two"
+            template: "#two",
+            created: function () {
+                // 在生命周期方法中通过this.$route.params获取路由规则与URL地址中传递来的参数
+                console.log(this.$route.params);
+            }
         }
         // 定义切换的规则(定义路由规则)
         const routes = [
             // 路由重定向：设置默认界面时的hash值
-            { path: '/', redirect: '/two' },
+            { path: '/', redirect: '/one' },
             { path: '/one', component: one },
-            { path: '/two', component: two }
+            // 通过路由规则中占位符的方式传递参数
+            { path: '/two/:name/:age', component: two }
         ];
         // 根据定义规则创建路由对象
         const router = new VueRouter({

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Vue.js模板</title>
+    <style>
+        .pageOne {
+            width: 300px;
+            height: 300px;
+            background-color: blueviolet;
+        }
+
+        .pageTwo {
+            width: 300px;
+            height: 300px;
+            background-color: brown;
+        }
+
+        .button-active {
+            border: none;
+            background-color: chartreuse;
+        }
+
+        .onepagesub1 {
+            width: 100px;
+            height: 100px;
+            background-color: darkblue;
+        }
+
+        .onepagesub2 {
+            width: 100px;
+            height: 100px;
+            background-color: darkgreen;
+        }
+    </style>
+    <script src='./js/vue.js'></script>
+    <script src="./js/vue-router.js"></script>
+</head>
+
+<body>
+    <div id='app'>
+        <!-- Vue Route传递参数：通过URL地址传递参数 -->
+        <router-link to="/one?name=andy&age=18" tag="button">第一个界面</router-link>
+        <!-- 通过路由规则中占位符的方式与URL地址传递参数 -->
+        <router-link to="/two/lmm/22" tag="button">第二个界面</router-link>
+        <router-view></router-view>
+    </div>
+    <template id="one">
+        <div class="pageOne">
+            <p>我是第一个界面</p>
+            <router-link to="/one/onesub1" tag="button">第一个界面</router-link>
+            <router-link to="/one/onesub2" tag="button">第二个界面</router-link>
+            <router-view></router-view>
+        </div>
+    </template>
+    <template id="two">
+        <div class="pageTwo">
+            <p>我是第二个界面</p>
+        </div>
+    </template>
+    <template id="onesub1">
+        <div class="onepagesub1">
+            <p>我是第一个界面的子界面1</p>
+        </div>
+    </template>
+    <template id="onesub2">
+        <div class="onepagesub2">
+            <p>我是第一个界面的子界面2</p>
+        </div>
+    </template>
+    <script>
+        //  定义需要切换的组件
+        const onesub1 = {
+            template: "#onesub1"
+        }
+        const onesub2 = {
+            template: "#onesub2"
+        }
+        const one = {
+            template: "#one",
+            created: function () {
+                // 在生命周期方法中通过this.$route.query获取通过URL地址传递来的参数
+                console.log(this.$route.query);
+            },
+            components: {
+                "onesub1": onesub1,
+                "onesub2": onesub2
+            }
+        }
+        const two = {
+            template: "#two",
+            created: function () {
+                // 在生命周期方法中通过this.$route.params获取路由规则与URL地址中传递来的参数
+                console.log(this.$route.params);
+            }
+        }
+        // 定义切换的规则(定义路由规则)
+        const routes = [
+            // 路由重定向：设置默认界面时的hash值
+            { path: '/', redirect: '/one' },
+            {
+                path: '/one',
+                component: one,
+                children: [
+                    {
+                        path: 'onesub1',
+                        component: onesub1
+                    },
+                    {
+                        path: 'onesub2',
+                        component: onesub2
+                    }
+                ]
+            },
+            // 通过路由规则中占位符的方式传递参数
+            { path: '/two/:name/:age', component: two }
+        ];
+        // 根据定义规则创建路由对象
+        const router = new VueRouter({
+            routes: routes,
+            // 设置router-link激活时的类名
+            linkActiveClass: "button-active"
+        })
+        let vue = new Vue({
+            el: '#app',
+            // 绑定路由对象
+            router: router,
+            data: {
+            },
+            components: {
+                "one": one,
+                "two": two
+            }
+        });
+    </script>
+</body>
+
+</html>

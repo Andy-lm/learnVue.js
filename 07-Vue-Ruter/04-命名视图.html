@@ -29,14 +29,8 @@
 
 <body>
     <div id='app'>
-        <!-- 通过a标签切换hash值 -->
-        <!-- <a href="#/one">切换第一个界面</a>
-        <a href="#/two">切换第一个界面</a> -->
-        <!-- 可以通过router-link设置URL的hash值 -->
-        <router-link to="/one" tag="button">第一个界面</router-link>
-        <router-link to="/two" tag="button">第二个界面</router-link>
-        <!-- 通过router-view标签将匹配的组件渲染出来 -->
-        <router-view></router-view>
+        <router-view name="name1"></router-view>
+        <router-view name="name2"></router-view>
     </div>
     <template id="one">
         <div class="pageOne">
@@ -59,9 +53,13 @@
         // 定义切换的规则(定义路由规则)
         const routes = [
             // 路由重定向：设置默认界面时的hash值
-            { path: '/', redirect: '/two' },
-            { path: '/one', component: one },
-            { path: '/two', component: two }
+            {
+                path: '/',
+                components: {
+                    name1: one,
+                    name2: two
+                }
+            },
         ];
         // 根据定义规则创建路由对象
         const router = new VueRouter({
