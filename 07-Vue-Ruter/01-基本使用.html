@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Vue.js模板</title>
+    <style>
+        .pageOne {
+            width: 300px;
+            height: 300px;
+            background-color: blueviolet;
+        }
+
+        .pageTwo {
+            width: 300px;
+            height: 300px;
+            background-color: brown;
+        }
+    </style>
+    <script src='./js/vue.js'></script>
+    <script src="./js/vue-router.js"></script>
+</head>
+
+<body>
+    <div id='app'>
+        <!-- 通过a标签切换hash值 -->
+        <a href="#/one">切换第一个界面</a>
+        <a href="#/two">切换第一个界面</a>
+        <!-- 通过router-view标签将匹配的组件渲染出来 -->
+        <router-view></router-view>
+    </div>
+    <template id="one">
+        <div class="pageOne">
+            <p>我是第一个界面</p>
+        </div>
+    </template>
+    <template id="two">
+        <div class="pageTwo">
+            <p>我是第二个界面</p>
+        </div>
+    </template>
+    <script>
+        //  定义需要切换的组件
+        const one = {
+            template: "#one"
+        }
+        const two = {
+            template: "#two"
+        }
+        // 定义切换的规则(定义路由规则)
+        const routes = [
+            { path: '/one', component: one },
+            { path: '/two', component: two }
+        ];
+        // 根据定义规则创建路由对象
+        const router = new VueRouter({
+            routes: routes
+        })
+        let vue = new Vue({
+            el: '#app',
+            // 绑定路由对象
+            router: router,
+            data: {
+            },
+            components: {
+                "one": one,
+                "two": two
+            }
+        });
+    </script>
+</body>
+
+</html>
