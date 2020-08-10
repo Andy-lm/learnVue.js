@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Vue.js模板</title>
+    <script src='./js/vue.js'></script>
+</head>
+
+<body>
+    <div id='app'>
+        <p>{{name}}</p>
+    </div>
+    <script>
+        let vue = new Vue({
+            el: '#app',
+            // 此时仅仅创建好了Vue的实例对象，初始化了事件与生命周期方法，还没有初始化Vue中的数据与方法
+            beforeCreate: function () {
+                // console.log(this.name);
+                // console.log(this.say);
+            },
+            // 此时初始化好了Vue中的数据与方法
+            // 这里是最早可以访问到Vue中的数据与方法的地方
+            created: function () {
+                // console.log(this.name);
+                // console.log(this.say);
+            },
+            // 此时Vue将html模板与实例中的数据刚刚绑定，生成新的模板保存在内存中但还没有渲染到界面上
+            beforeMount: function () {
+                // console.log(document.querySelector("p").innerHTML);
+            },
+            // 此时将生成好的模板已经渲染到了界面上
+            mounted: function () {
+                console.log(document.querySelector("p").innerHTML);
+            },
+            data: {
+                name: 'lmm'
+            },
+            methods: {
+                say() {
+                    console.log("hello");
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

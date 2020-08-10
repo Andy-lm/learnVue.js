@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Vue.js模板</title>
+    <script src='./js/vue.js'></script>
+</head>
+
+<body>
+    <div id='app'>
+        <p>{{name}}</p>
+    </div>
+    <script>
+        let vue = new Vue({
+            el: '#app',
+            // 在调用beforeUpdate的时候说明Vue实例中的数据已经被修改了
+            // 特点：数据已经改变，但还没有同步渲染到html界面上
+            beforeUpdate: function () {
+                // console.log("beforeUpdate");
+                console.log(this.name);
+                console.log(document.querySelector("p").innerHTML);
+            },
+            // 将修改后的数据重新生成新的模板并渲染到界面上，之后调用该函数
+            updated: function () {
+                console.log(this.name);
+                console.log(document.querySelector("p").innerHTML);
+            },
+            data: {
+                name: 'lmm'
+            },
+            methods: {
+                say() {
+                    console.log("hello");
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

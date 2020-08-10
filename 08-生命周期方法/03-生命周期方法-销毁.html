@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Vue.js模板</title>
+    <script src='./js/vue.js'></script>
+</head>
+
+<body>
+    <div id='app'>
+        <button @click="toggle">切换</button>
+        <one v-if="isShow"></one>
+    </div>
+    <template id="one">
+        <div>
+            <p>我是组件</p>
+        </div>
+    </template>
+    <script>
+        // Vue的实例对象可以看做是一个大的组件，自定义的组件可以看做是一个小的组件
+        // 实例对象中有生命周期方法，在组件中同样有生命周期方法
+        Vue.component("one", {
+            template: "#one",
+            data: function () {
+                return {
+                    age: 18
+                }
+            },
+            // beforeDestroy是在组件被销毁前调用
+            // beforeDestroy是最后能访问到组件中数据与方法的地方
+            beforeDestroy: function () {
+                console.log("beforeDestroy");
+                console.log(this.age);
+            },
+            // destroyed方法在组件完全被销毁时调用
+            // 无论在destroyed是否可以拿到组件中的数据与方法都不要再对其操作了
+            destroyed: function () {
+                console.log("destroyed");
+            },
+        })
+        let vue = new Vue({
+            el: '#app',
+            data: {
+                name: 'lmm',
+                isShow: true
+            },
+            methods: {
+                toggle() {
+                    this.isShow = !this.isShow;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
