@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Vue.js模板</title>
+    <script src='./js/vue.js'></script>
+    <script src="./js/vuex.js"></script>
+</head>
+
+<body>
+    <div id='app'>
+        <grandfather></grandfather>
+    </div>
+    <template id="grandfather">
+        <div>
+            <p>我是爷爷</p>
+            <p>{{this.$store.state.msg}}</p>
+            <father></father>
+        </div>
+    </template>
+    <template id="father">
+        <div>
+            <p>我是爸爸</p>
+            <p>{{this.$store.state.msg}}</p>
+            <son></son>
+        </div>
+    </template>
+    <template id="son">
+        <div>
+            <p>我是儿子</p>
+            <p>{{this.$store.state.msg}}</p>
+        </div>
+    </template>
+    <script>
+        const store = new Vuex.Store({
+            state: {
+                msg: "这是保存在Vuex中的公共数据"
+            }
+        })
+        Vue.component("grandfather", {
+            template: "#grandfather",
+            // 将Vuex上的数据挂载到组件上
+            store: store,
+            components: {
+                "father": {
+                    template: "#father",
+                    components: {
+                        "son": {
+                            template: "#son"
+                        }
+                    }
+                }
+            }
+        })
+        let vue = new Vue({
+            el: '#app',
+            data: {
+                name: 'lmm'
+            }
+        });
+    </script>
+</body>
+
+</html>

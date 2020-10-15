@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Vue.js模板</title>
+    <script src='./js/vue.js'></script>
+</head>
+
+<body>
+    <div id='app'>
+        <input type="text" @keydown.a="fn($event)">
+    </div>
+    <script>
+        // 给修饰符配置别名
+        Vue.config.keyCodes.a = 65;
+        let vue = new Vue({
+            el: '#app',
+            data: {
+                name: 'lmm'
+            },
+            methods: {
+                fn(e) {
+                    console.log("按下了a建");
+                    // 获得a的ASCII编码
+                    console.log(e.keyCode);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

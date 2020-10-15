@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Vue.js模板</title>
+    <script src='./js/vue.js'></script>
+    <script src="./js/vuex.js"></script>
+</head>
+
+<body>
+    <div id='app'>
+        <father></father>
+    </div>
+    <template id="father">
+        <div>
+            <p>我是爸爸{{this.$store.getters.formart}}</p>
+            <p v-for="(value,index) in this.$store.state.arr">{{value}}</p>
+        </div>
+    </template>
+    <script>
+        // 在Vuex中，state用来保存数据，mutations用来保存修改数据的方法，getters用来保存计算属性
+        // 调用格式分别为：
+        // this.$store.state.name;
+        // this.$store.commit("say");
+        // this.$store.getters.formart;
+        const store = new Vuex.Store({
+            state: {
+                what: "Vue.js",
+                arr: ['xx', 'cc', 'ww']
+            },
+            getters: {
+                formart(state) {
+                    return state.what.split(".");
+                }
+            }
+        })
+        let vue = new Vue({
+            el: '#app',
+            store: store,
+            data: {
+                name: "Vuex"
+            },
+            components: {
+                "father": {
+                    template: "#father",
+                    data: function () {
+                        return {
+                            name: "Vuex"
+                        }
+                    },
+                    computed: {
+                        formart() {
+                            console.log("计算属性被执行了");
+                            return this.name + "lmm learn"
+                        }
+                    }
+                },
+
+            }
+
+        });
+    </script>
+</body>
+
+</html>

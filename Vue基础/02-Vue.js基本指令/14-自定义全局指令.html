@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Vue.js模板</title>
+    <script src='./js/vue.js'></script>
+</head>
+
+<body>
+    <div id='app'>
+        <p v-color="ys">我是段落</p>
+        <input type="text" v-focus>
+    </div>
+    <script>
+        // 注意点：自定义指令可以在不同的生命周期执行
+        // bind在指令被绑定到元素上时执行
+        Vue.directive("color", {
+            bind: function (el, binding) {
+                // binding.value获取自定义指令传递参数值
+                el.style.color = binding.value;
+            }
+        })
+        // inserted在元素被渲染到界面上时再执行
+        Vue.directive("focus", {
+            inserted: function (el) {
+                el.focus();
+                el.value = "我是在元素被渲染上的时候再执行的"
+            }
+        })
+        let vue = new Vue({
+            el: '#app',
+            data: {
+                ys: 'blue'
+            }
+        });
+    </script>
+</body>
+
+</html>

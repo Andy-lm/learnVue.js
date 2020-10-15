@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>任务App</title>
+    <script src='./js/vue.js'></script>
+</head>
+
+<body>
+    <div id='app'>
+        <input type="text" v-model="job">
+        <button @click="add">添加任务</button>
+        <button @click="del">完成最早添加的任务</button>
+        <ul>
+            <li v-for="(job,index) in queue">{{index}}------{{job}}</li>
+        </ul>
+        <br><br><br><br>
+        <span>已完成任务</span>
+        <span>{{suJob}}</span>
+    </div>
+    <script>
+        let vue = new Vue({
+            el: '#app',
+            data: {
+                job: "",
+                queue: [],
+                suJob: ""
+            },
+            methods: {
+                add() {
+                    this.queue.push(this.job);
+                    this.job = "";
+                },
+                del() {
+                    this.suJob = this.queue.shift();
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
