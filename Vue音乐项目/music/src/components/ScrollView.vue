@@ -48,6 +48,14 @@ export default {
             this.iscroll.on('scroll',function(){
                 fn(this.y);
             })
+        },
+        refresh(){
+            setTimeout(()=>{
+                this.iscroll.refresh();
+            },100)
+        },
+        scrollTo(x,y,time){
+            this.iscroll.scrollTo(x,y,time);
         }
     }
 

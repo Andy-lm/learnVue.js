@@ -3,7 +3,7 @@
     <div class="header" @click="changeTheme">
         <div class="header-left"></div>
         <p class="header-title">FANTA</p>
-        <div class="header-right"></div>
+        <div class="header-right" @click.stop="accountClick"></div>
     </div>
 </template>
 <!-- script用于编写当前组件业务代码 -->
@@ -24,6 +24,9 @@
                     this.index = 0;
                 }
                 document.documentElement.setAttribute("data-theme", this.theme[this.index]);
+            },
+            accountClick(){
+                this.$router.push('/account');
             }
         }
     }

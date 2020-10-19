@@ -3,31 +3,31 @@
         @enter="enter" 
         @leave="leave" 
         :css="false">>
-    <div class="list-player" v-show="isShow">
+    <div class="list-player" v-show="isShowListPlayer">
       <div class="player-container">
         <div class="player-top">
-          <div class="top-left">
-            <div class="mode loop" ref="mode"></div>
-            <p>顺序播放</p>
-            <!-- <p v-if="this.modeType === 0">顺序播放</p> -->
-            <!-- <p v-else-if="this.modeType === 1">单曲播放</p>
-            <p v-else>随机播放</p> -->
+          <div class="top-left" @click.stop="mode">
+            <div class="mode loop" ref="mode" @click.stop="mode"></div>
+              <!-- <p v-if="this.modeType === 0">顺序播放</p> -->
+              <p v-if="this.modeType === 0" >顺序播放</p>
+              <p v-else-if="this.modeType === 1">单曲播放</p>
+              <p v-else>随机播放</p> 
           </div>
           <div class="top-right">
-            <div class="del"></div>
+            <div class="del" @click="delAll"></div>
           </div>
         </div>
         <div class="player-middle">
           <ScrollView ref="scrollView">
-            <ul>
-              <li class="item">
+            <ul ref="play">
+              <li class="item" v-for="(value,index) in songs" :key="value.id" @click="selectMusic(index)">
                 <div class="item-left">
-                  <div class="item-play" @click="play" ref="play"></div>
-                  <p>演员</p>
+                  <div class="item-play" @click.stop="play" v-show="currentIndex === index"></div>
+                  <p>{{value.name}}</p>
                 </div>
                 <div class="item-right">
-                  <div class="item-favorite"></div>
-                  <div class="item-del"></div>
+                  <div class="item-favorite" @click.stop="favorite(value)" :class="{'active':isFavorite(value)}"></div>
+                  <div class="item-del" @click.stop="del(index)"></div>
                 </div>
               </li>
             </ul>
@@ -45,44 +45,74 @@
 import Velocity from "velocity-animate"
 import "velocity-animate/velocity.ui"
 import ScrollView from '../ScrollView'
-import {mapActions,mapGetters} from "vuex";
+import {mapActions,mapGetters} from "vuex"
+import modeType from '../../store/modeType'
 export default {
   name: 'ListPlayer',
   methods:{
       ...mapActions([
-        'setIsPlaying'
+        'setIsPlaying',
+        'setModeType',
+        'setListPlayer',
+        'setDelSong',
+        'setCurrentIndex',
+        'setFavoriteSong'
       ]),
-      show(){
-          this.isShow = true;
-      },
       hidden(){
-          this.isShow = false;
+          this.setListPlayer(false);
       },
       enter(el,done){
             Velocity(el, 'transition.slideUpBigIn', { duration: 500 },function(){
                 done();
             })
         },
-        leave(el,done){
-          Velocity(el, 'transition.slideDownBigOut', { duration: 500 },function(){
-              done();
-          })
-        },
+      leave(el,done){
+        Velocity(el, 'transition.slideDownBigOut', { duration: 500 },function(){
+          done();
+        })
+      },
       play(){
         this.setIsPlaying(!this.isPlaying);
+      },
+      mode(){
+        if(this.modeType === modeType.loop) {
+            this.setModeType(modeType.one)
+          }else if(this.modeType === modeType.one){
+            this.setModeType(modeType.random)
+          }else if(this.modeType === modeType.random) {
+            this.setModeType(modeType.loop)
+        }
+      },
+      del(index){
+        this.setDelSong(index);
+      },
+      delAll(){
+        this.setDelSong();
+      },
+      selectMusic(index){
+        this.setCurrentIndex(index)
+      },
+      favorite(value){
+        this.setFavoriteSong(value);
+      },
+      isFavorite(song){
+        let result =  this.favoriteList.find((currentValue) => {
+          return currentValue.id === song.id;
+        })
+        return result !== undefined;
       }
     },
-    data:function(){
-        return {
-        isShow:false
-    }
-  },
   components: {
     ScrollView
   },
   computed:{
     ...mapGetters([
-        'isPlaying'
+        'isPlaying',
+        'modeType',
+        'isShowListPlayer',
+        'songs',
+        'currentIndex',
+        'favoriteList',
     ])
   },
   watch:{
@@ -92,6 +122,23 @@ export default {
             }else {
                 this.$refs.play.classList.remove('active');
             }
+        },
+        modeType(newValue,oldValue){
+            if(newValue === modeType.loop) {
+                this.$refs.mode.classList.add('loop');
+                this.$refs.mode.classList.remove('random');
+            }else if(newValue === modeType.one){
+                this.$refs.mode.classList.add('one');
+                this.$refs.mode.classList.remove('loop');
+            }else if(newValue === modeType.random) {
+                this.$refs.mode.classList.add('random');
+                this.$refs.mode.classList.remove('one');
+            }
+        },
+        isShowListPlayer(newValue,oldValue){
+          if(newValue){
+            this.$refs.scrollView.refresh();
+          }
         }
     }
 }
@@ -121,16 +168,15 @@ export default {
           width: 56px;
           height: 56px;
           margin-right: 20px;
-          @include bg_img('../../assets/images/small_loop')
-        //   &.loop{
-        //     @include bg_img('../../assets/images/small_loop')
-        //   }
-        //   &.one{
-        //     @include bg_img('../../assets/images/small_one')
-        //   }
-        //   &.random{
-        //     @include bg_img('../../assets/images/small_shuffle')
-        //   }
+          &.loop{
+            @include bg_img('../../assets/images/small_loop')
+          }
+          &.one{
+            @include bg_img('../../assets/images/small_one')
+          }
+          &.random{
+            @include bg_img('../../assets/images/small_shuffle')
+          }
         }
         p{
           @include font_size($font_medium_s);
@@ -148,15 +194,15 @@ export default {
     .player-middle{
       height: 700px;
       overflow: hidden;
-      // ul{
-        // &.active{
-        //   .item{
-        //     .item-play{
-        //       @include bg_img('../../assets/images/small_play');
-        //     }
-        //   }
-        // }
-      // }
+      ul{
+        &.active{
+          .item{
+            .item-play{
+              @include bg_img('../../assets/images/small_pause');
+            }
+          }
+        }
+      }
       .item{
         border-top: 1px solid #ccc;
         height: 100px;
@@ -173,10 +219,10 @@ export default {
             width: 56px;
             height: 56px;
             margin-right: 20px;
-            @include bg_img('../../assets/images/small_pause');
-            &.active {
-              @include bg_img('../../assets/images/small_play');
-            }
+            @include bg_img('../../assets/images/small_play');
+            // &.active {
+            //   @include bg_img('../../assets/images/small_pause');
+            // }
           }
           p{
             width: 80%;

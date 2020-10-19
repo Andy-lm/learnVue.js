@@ -2,85 +2,15 @@
     <swiper :options="swiperOption" class="banner">
     <!-- slides -->
     <swiper-slide class="cd">
-        <div class="cd-container">
-            <img src="../../assets/images/fox.jpg" alt="">
+        <div class="cd-container" ref="cdContainer">
+            <img :src="currentSong.picUrl" alt="">
         </div>
-        <p>带动啊啊啊啊啊啊啊啊啊啊</p>
+        <p>{{getFirstLyric()}}</p>
     </swiper-slide>
     <swiper-slide class="lyric" ref="lyric">
-        <ScrollView>
+        <ScrollView ref="scrollView">
             <ul>
-                <li>dds</li>
-                <li>fdsf</li>
-                <li>sdf</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
-                <li>dds</li>
-                <li>fdsf</li>
-                <li>sdf</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
-                <li>dds</li>
-                <li>fdsf</li>
-                <li>sdf</li>
-                <li>x</li>
-                <li>x</li>
-                <li>dds</li>
-                <li>fdsf</li>
-                <li>sdf</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
-                <li>dds</li>
-                <li>fdsf</li>
-                <li>sdf</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
-                <li>dds</li>
-                <li>fdsf</li>
-                <li>sdf</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
-                <li>dds</li>
-                <li>fdsf</li>
-                <li>sdf</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
-                <li>x</li>
+                <li v-for="(value,key) in currentLyric" :key="key" :class="{'active':key === currentLineNum}">{{value}}</li>                
             </ul>
         </ScrollView>
     </swiper-slide>
@@ -92,6 +22,7 @@
 import { Swiper, SwiperSlide, directive} from 'vue-awesome-swiper'
 import 'swiper/swiper-bundle.css'
 import ScrollView from '../ScrollView'
+import {mapGetters} from 'vuex'
 export default {
     name:'PlayerMiddle',
       data () {
@@ -116,6 +47,95 @@ export default {
         SwiperSlide,
         ScrollView
     },
+    methods:{
+        getFirstLyric(){
+            for(let k in this.currentLyric) {
+                return this.currentLyric[k]
+            }
+        },
+        getActiveLineNum(lineNum){
+            if(lineNum < 0) {
+                return this.currentLineNum;
+            }
+            let result = this.currentLyric[lineNum + ''];
+            if(result === undefined || result === '') {
+                lineNum--;
+                return this.getActiveLineNum(lineNum);
+            }else {
+                return lineNum + '';
+            }
+        }
+    },
+    computed:{
+        ...mapGetters([
+            'isPlaying',
+            'currentSong',
+            'currentLyric'
+        ])
+    },
+    watch:{
+        isPlaying(newValue,oldValue){
+            if(newValue){
+                this.$refs.cdContainer.classList.add('active');
+            }else {
+                this.$refs.cdContainer.classList.remove('active');
+            }
+        },
+        // 处理歌词同步
+        currentTime(newValue,oldValue){ 
+            /*
+            // 歌词高亮同步
+            let lineNum = Math.floor(newValue) + '';
+            let result = this.currentLyric[lineNum];
+             
+            
+            if(result !== undefined && result !== '') {
+                this.currentLineNum = lineNum;
+                    // 歌词滚动同步
+                    // 歌词距离容器顶部的高度
+                if(document.querySelector('li.active') !== null) {
+                    let currentLyricTop = document.querySelector('li.active').offsetTop
+                    // console.log(currentLyricTop);
+                    // 容器的高度
+                    let lyricHeight = this.$refs.lyric.$el.offsetHeight;
+                    if(currentLyricTop >= lyricHeight/2) {
+                    // console.log('开始滚动');
+                    this.$refs.scrollView.scrollTo(0,lyricHeight/2 - currentLyricTop,100);
+                    }
+                }
+            }  
+             */
+            let lineNum = Math.floor(newValue);
+            this.currentLineNum = this.getActiveLineNum(lineNum);
+            if(document.querySelector('li.active') !== null) {
+                let currentLyricTop = document.querySelector('li.active').offsetTop
+                // console.log(currentLyricTop);
+                // 容器的高度
+                let lyricHeight = this.$refs.lyric.$el.offsetHeight;
+                if(currentLyricTop >= lyricHeight/2) {
+                // console.log('开始滚动');
+                this.$refs.scrollView.scrollTo(0,lyricHeight/2 - currentLyricTop,100);
+                }else {
+                    this.$refs.scrollView.scrollTo(0,0,100);
+                }
+            }
+        },
+        // 处理默认歌词索引不是0的问题
+        currentLyric(newValue,oldValue){
+            for(let k in newValue) {
+                this.currentLineNum = k
+                return
+            }
+        },
+
+    },
+    props:{
+        currentTime:{
+            type:Number,
+            default:0,
+            required:true
+        }
+    }
 }
 </script>
 
@@ -123,6 +143,7 @@ export default {
   @import "../../assets/css/variable";
   @import "../../assets/css/mixin";
 .banner {
+    // 直接用定位确定了iscorll的容器高度
     position: fixed;
     top: 150px;
     bottom: 250px;
@@ -136,6 +157,11 @@ export default {
         height: 500px;
         border-radius: 50%;
         border: 20px solid #ffffff;
+        animation: sport 6s linear infinite;
+        animation-play-state: paused;
+        &.active {
+            animation-play-state: running;
+        }
         img {
             width: 100%;
             height: 100%;
@@ -158,11 +184,20 @@ export default {
             padding-bottom: 50%;
             }     
             &.active{
-                color: #fff;
+                // color: #fff;
+                @include font_active_color();
             }
         }
     }
     
+}
+@keyframes sport {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 </style>
 <style lang="scss">

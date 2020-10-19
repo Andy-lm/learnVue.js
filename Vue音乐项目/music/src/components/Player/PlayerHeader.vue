@@ -3,15 +3,15 @@
     <div class="header">
         <div class="header-left" @click="hiddenNormalPlayer"></div>
         <div class="header-title">
-            <h3>演员</h3>
-            <p>薛之谦</p>
+            <h3>{{currentSong.name}}</h3>
+            <p>{{currentSong.singer}}</p>
         </div>
         <div class="header-right"></div>
     </div>
 </template>
 <!-- script用于编写当前组件业务代码 -->
 <script>
-import {mapActions} from "vuex";
+import {mapActions,mapGetters} from "vuex";
     // 这里使用ES6模块化代码将这个对象暴露出去
     export default {
         name: 'PlayerHeader',
@@ -37,6 +37,11 @@ import {mapActions} from "vuex";
             //     default: '',
             //     required: true,
             // }
+        },
+        computed:{
+            ...mapGetters([
+                'currentSong'
+            ])
         }
     }
 </script>
@@ -74,6 +79,12 @@ import {mapActions} from "vuex";
             color: #fff;
             font-weight: 700;
             @include font_size($font_medium_s);
+            h3 {
+                @include clamp(1);
+            }
+            p {
+               @include clamp(1); 
+            }
         }
     }
 </style>

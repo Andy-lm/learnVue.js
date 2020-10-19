@@ -1,10 +1,10 @@
 <template>
     <ul class="detail-bottom">
-        <li class="bottom-top">
+        <li class="bottom-top" @click="selectAllMusic">
             <div class="bottom-icon"></div>
             <div class="bottom-title">播放全部</div>
         </li>
-        <li v-for="value in playlist" :key="value.id" class="item" @click="selectMusic">
+        <li v-for="value in playlist" :key="value.id" class="item" @click="selectMusic(value.id)">
             <div class="container">
                 <h3>{{value.name}}</h3>
                 <p>{{value.al.name}} - {{value.ar[0].name}}</p>
@@ -20,12 +20,22 @@ export default {
     methods:{
         ...mapActions([
             "setFullScreen",
-            "setMiniPlayer"
+            "setMiniPlayer",
+            "setSongDetail"
         ]),
-        selectMusic(){
+        selectMusic(id){
             // this.$store.dispatch('setFullScreen',true);
             this.setFullScreen(true);
-            this.setMiniPlayer(false)
+            this.setMiniPlayer(false);
+            this.setSongDetail([id])
+        },
+        selectAllMusic(){
+            this.setFullScreen(true);
+            let ids = this.playlist.map(item =>{
+                return item.id;
+            })
+            // console.log(ids);
+            this.setSongDetail(ids)
         }
     },
     props:{

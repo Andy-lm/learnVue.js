@@ -6,10 +6,10 @@
     <div class="mini-player" v-show="this.isShowMiniPlayer">
         <div class="player-container">
             <div class="player-left" @click="showNormalPlayer">
-                <img src="../../assets/images/fox.jpg" alt="">
+                <img :src="currentSong.picUrl" alt="" ref="miniCd">
                 <div class="player-title">
-                    <h3>演员</h3>
-                    <p>薛之谦</p>
+                    <h3>{{currentSong.name}}</h3>
+                    <p>{{currentSong.singer}}</p>
                 </div>
             </div>
             <div class="player-right">
@@ -31,10 +31,11 @@ export default {
         ...mapActions([
             'setFullScreen',
             'setMiniPlayer',
+            'setListPlayer',
             'setIsPlaying'
         ]),
         showList() {
-            this.$emit('showList');
+            this.setListPlayer(true);
         },
         showNormalPlayer(){
             this.setFullScreen(true);
@@ -57,15 +58,18 @@ export default {
     computed:{
         ...mapGetters([
             'isShowMiniPlayer',
-            'isPlaying'
+            'isPlaying',
+            'currentSong'
         ])
     },
     watch:{
         isPlaying(newValue,oldValue){
             if(newValue){
                 this.$refs.play.classList.add('active');
+                this.$refs.miniCd.classList.add('active');
             }else {
                 this.$refs.play.classList.remove('active');
+                this.$refs.miniCd.classList.remove('active');
             }
         }
     }
@@ -96,9 +100,14 @@ export default {
                     height: 100px;
                     border-radius: 50%;
                     margin-right: 20px;
+                    animation: sport 6s linear infinite;
+                    animation-play-state: paused;
+                    &.active {
+                    animation-play-state: running;
+                    }
                 }
                 .player-title {
-                    text-align: center;
+                    // text-align: center;
                     h3 {
                         @include font_size($font_medium);
                         @include font_color();
@@ -115,9 +124,9 @@ export default {
                 .play {
                     width: 84px;
                     height: 84px;
-                    @include bg_img("../../assets/images/pause");
+                    @include bg_img("../../assets/images/play");
                     &.active{
-                        @include bg_img("../../assets/images/play");
+                        @include bg_img("../../assets/images/pause");
                     }
                 }
                 .list {
@@ -128,4 +137,12 @@ export default {
             }
         }
     }
+@keyframes sport {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
 </style>
