@@ -57,13 +57,16 @@ export default {
                 }
                 .song-title {
                     margin-left: 50px;
+                    width: 70%;
                     h3 {
                     @include font_size($font_medium);
                     @include font_color();
+                    @include no-wrap();
                 }
                     p {
                     @include font_size($font_samll);
                     @include font_color();
+                    @include no-wrap();
                     margin-top: 10px;
                     opacity: 0.6;
                     }

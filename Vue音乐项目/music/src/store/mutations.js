@@ -80,7 +80,7 @@ export default {
     },
     [SET_FAVORITE_SONG](state, song) {
         let result = state.favoriteList.find(function (currentValue) {
-            return currentValue === song;
+            return currentValue.id === song.id;
         })
         if (result === undefined) {
             state.favoriteList.push(song);
@@ -94,7 +94,7 @@ export default {
     },
     [SET_HISTORY_SONG](state, song) {
         let result = state.historyList.find(function (currentValue) {
-            return currentValue === song;
+            return currentValue.id === song.id;
         })
         if (result === undefined) {
             if (state.historyList.length > 30) {

@@ -1,7 +1,8 @@
 <template>
     <transition appear>
         <div class="account">
-            <AccountHeader></AccountHeader>
+            <AccountHeader @switchItem="switchItem"></AccountHeader>
+            <AccountBottom :switchNum="switchNum"></AccountBottom>
         </div>
     </transition>
     
@@ -9,22 +10,36 @@
 
 <script>
 import AccountHeader from "../components/Account/AccountHeader"
+import AccountBottom from "../components/Account/AccountBottom"
 export default {
     name:'Account',
     components:{
-        AccountHeader
+        AccountHeader,
+        AccountBottom
+    },
+    methods:{
+        switchItem(num){
+            this.switchNum = num;
+        }
+    },
+    data(){
+        return {
+            switchNum:0
+        }
     }
 }
 </script>
 
 <style scoped lang="scss">
+@import '../assets/css/variable.scss';
+@import '../assets/css/mixin.scss';
     .account {
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: blueviolet; 
+        @include bg_sub_color();
     }
     .v-enter {
         /* opacity指变化的程度 */

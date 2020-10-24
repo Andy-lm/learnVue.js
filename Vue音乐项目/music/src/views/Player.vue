@@ -59,14 +59,22 @@ export default {
     watch:{
         isPlaying(newValue,oldValue){
             if(newValue){
+                console.log('play()');
                 this.setHistorySong(this.currentSong);
                 this.$refs.audio.play();
             }else {
+                console.log('pause()');
                 this.$refs.audio.pause();
             }
         },
         currentIndex(){
-            this.$refs.audio.oncanplay = () => {
+            // oncanplay在歌曲加载完执行
+            // 因为对于iPhone手机其默认是没有预加载的，所以当我们监听oncanplay时是永远无法触发的
+            // 所以最终的解决办法就是使用ondurationchange替代
+            // this.$refs.audio.oncanplay = () => {
+                this.$refs.audio.ondurationchange = () => {
+                // currentIndex变化了
+                console.log('currentIndex变化了');
                 this.totalTime = this.$refs.audio.duration;
                 if(this.isPlaying) {
                     this.setHistorySong(this.currentSong);
@@ -102,7 +110,8 @@ export default {
         this.setHistoryList(historyList);
     },
     mounted(){
-        this.$refs.audio.oncanplay = () => {
+        // this.$refs.audio.oncanplay = () => {
+            this.$refs.audio.ondurationchange = () => {
             this.totalTime = this.$refs.audio.duration
         }
     },

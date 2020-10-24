@@ -15,7 +15,7 @@ import SubHeader from "../components/Detail/DetailHeader"
 import DetailTop from "../components/Detail/DetailTop"
 import DetailBottom from "../components/Detail/DetailBottom"
 import ScrollView from  "../components/ScrollView"
-import {getPlayList,getAlbum} from "../api/index.js";
+import {getPlayList,getAlbum,getArtistsSongs} from "../api/index.js";
 export default {
     name:"Detail",
     data(){
@@ -40,6 +40,25 @@ export default {
                     coverImgUrl:data.album.picUrl,
                     tracks:data.songs
                 }
+            }).catch((err) => {
+                console.log(err);
+            })
+        }else if(this.$route.params.type === 'singer') {
+            getArtistsSongs({id: this.$route.params.id}).then((data) => {
+            // console.log(data);
+                // this.playlist = data.playlist
+                this.playlist = {
+                    name:data.artist.name,
+                    coverImgUrl:data.artist.picUrl,
+                    tracks:data.hotSongs
+                }
+            }).catch((err) => {
+                console.log(err);
+            })
+        }else if(this.$route.params.type === 'rank') {
+            getPlayList({id: this.$route.params.id}).then((data) => {
+            // console.log(data);
+                this.playlist = data.playlist
             }).catch((err) => {
                 console.log(err);
             })

@@ -109,7 +109,7 @@ export default {
             this.currentLineNum = this.getActiveLineNum(lineNum);
             if(document.querySelector('li.active') !== null) {
                 let currentLyricTop = document.querySelector('li.active').offsetTop
-                // console.log(currentLyricTop);
+                console.log(currentLyricTop);
                 // 容器的高度
                 let lyricHeight = this.$refs.lyric.$el.offsetHeight;
                 if(currentLyricTop >= lyricHeight/2) {

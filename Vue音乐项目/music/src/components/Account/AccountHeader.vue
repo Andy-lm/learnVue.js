@@ -36,6 +36,7 @@
             },
             switchItem(index){
                 this.switchNum = index;
+                this.$emit('switchItem',index);
             }
         },
     }

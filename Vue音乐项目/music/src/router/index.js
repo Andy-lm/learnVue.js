@@ -52,8 +52,24 @@ const routes = [
       }
     ]
   },
-  { path: '/rank', component: Rank },
-  { path: '/singer', component: Singer },
+  {
+    path: '/rank', component: Rank,
+    children: [ // 配置子组件
+      {
+        path: 'detail/:id/:type',
+        component:Detail
+      }
+    ]
+  },
+  {
+    path: '/singer', component: Singer,
+    children: [ // 配置子组件
+      {
+        path: 'detail/:id/:type',
+        component:Detail
+      }
+    ]
+  },
   { path: '/search', component: Search },
   { path: '/account', component: Account }
 ]
