@@ -1,9 +1,18 @@
 <!-- template用于编写当前组件结构代码 -->
 <template>
-    <div class="header" @click="changeTheme">
+    <!-- <div class="header" @click="changeTheme">
         <div class="header-left"></div>
         <p class="header-title">FANTA</p>
         <div class="header-right" @click.stop="accountClick"></div>
+    </div> -->
+    <div class="header" @click="changeTheme">
+        <div class="left">
+            <slot name="left" class="left">左边</slot>
+        </div>
+       <slot name="center">中间</slot>
+        <div class="right">
+           <slot name="right" class="right">右边</slot>
+        </div>
     </div>
 </template>
 <!-- script用于编写当前组件业务代码 -->
@@ -24,9 +33,6 @@
                     this.index = 0;
                 }
                 document.documentElement.setAttribute("data-theme", this.theme[this.index]);
-            },
-            accountClick(){
-                this.$router.push('/account');
             }
         }
     }
@@ -40,17 +46,19 @@
         height: 100px;
         display: flex;
         justify-content: space-between;
-        // background-color: blue;
         @include bg_color();
-        // position: relative;
-        // z-index: 999;
-        .header-left,
-        .header-right {
+        .left,
+        .right {
             width: 84px;
             height: 84px;
             margin-top: 8px;
+            *{
+                width: 100%;
+                height: 100%;
+            }
         }
-        .header-left {
+        
+        /* .header-left {
             @include bg_img('../assets/images/logo');
         }
         .header-right {
@@ -62,6 +70,6 @@
             color: #fff;
             font-weight: 700;
             @include font_size($font_medium);
-        }
+        } */
     }
 </style>

@@ -59,11 +59,11 @@ export default {
     watch:{
         isPlaying(newValue,oldValue){
             if(newValue){
-                console.log('play()');
+                // console.log('play()');
                 this.setHistorySong(this.currentSong);
                 this.$refs.audio.play();
             }else {
-                console.log('pause()');
+                // console.log('pause()');
                 this.$refs.audio.pause();
             }
         },
@@ -74,7 +74,7 @@ export default {
             // this.$refs.audio.oncanplay = () => {
                 this.$refs.audio.ondurationchange = () => {
                 // currentIndex变化了
-                console.log('currentIndex变化了');
+                // console.log('currentIndex变化了');
                 this.totalTime = this.$refs.audio.duration;
                 if(this.isPlaying) {
                     this.setHistorySong(this.currentSong);

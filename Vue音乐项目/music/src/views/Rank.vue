@@ -1,6 +1,7 @@
 <template>
     <div class="rank">
-        <ScrollView>
+        <div class="rank-container">
+            <ScrollView>
             <ul>
                 <li v-for="(value, key) in category.titles" :key="key">
                     <h3 class="group-title">{{value}}</h3>
@@ -28,7 +29,9 @@
                     </ul>
                 </li>
             </ul>
-        </ScrollView>
+            </ScrollView>
+        </div>
+        
         <transition>
             <router-view></router-view>
         </transition>
@@ -38,9 +41,10 @@
 <script>
 import {getTopListDetail} from "../api/index"
 import ScrollView from "../components/ScrollView"
-
+import MetaInfo from "../../vue-meta-info"
 export default {
     name:'Rank',
+    metaInfo:MetaInfo.rank,
     components:{
         ScrollView
     },
@@ -71,14 +75,17 @@ export default {
 @import '../assets/css/variable.scss';
 @import '../assets/css/mixin.scss';
 .rank {
-    position: fixed;
-    top: 184px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow: hidden;
-    @include bg_sub_color();
-    .group-title{
+    width: 100%;
+    height: 100%;
+    .rank-container {
+        position: fixed;
+        top: 184px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow: hidden;
+        @include bg_sub_color();
+        .group-title{
         padding: 10px 35px;
         @include font_size($font_large);
         @include font_color();
@@ -151,10 +158,12 @@ export default {
             }
         }
     }
+    }
+    
     .v-enter {
             /* opacity指变化的程度 */
             transform: translateX(100%);
-        }
+    }
 
     .v-enter-to {
         transform: translateX(0%);

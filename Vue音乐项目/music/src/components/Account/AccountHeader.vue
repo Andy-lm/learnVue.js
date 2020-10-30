@@ -1,36 +1,31 @@
 <!-- template用于编写当前组件结构代码 -->
 <template>
-    <div class="header" @click="changeTheme">
-        <div class="header-left" @click.stop="back"></div>
-        <p class="header-title">
+    <Header class="header">
+        <div slot="left" class="header-left" @click.stop="back"></div>
+        <p slot="center" class="header-title">
             <ul>
                 <li :class="{'active': switchNum === 0}" @click.stop="switchItem(0)">我喜欢的</li>
                 <li :class="{'active': switchNum === 1}" @click.stop="switchItem(1)">最近听的</li>
             </ul>
         </p>
-        <div class="header-right"></div>
-    </div>
+        <div slot="right" class="header-right"></div>
+    </Header>
 </template>
 <!-- script用于编写当前组件业务代码 -->
 <script>
+    import Header from "../Header"
     // 这里使用ES6模块化代码将这个对象暴露出去
     export default {
         name: 'AccountHeader',
         data:function(){
             return {
-                theme:['theme','theme1','theme2'],
-                index:0,
                 switchNum:0
             }
         },
+        components:{
+            Header
+        },
         methods:{
-            changeTheme() {
-                this.index++;
-                if(this.index >= this.theme.length) {
-                    this.index = 0;
-                }
-                document.documentElement.setAttribute("data-theme", this.theme[this.index]);
-            },
             back() {
                 window.history.back();
             },
@@ -46,20 +41,6 @@
     @import '../../assets/css/variable.scss';
     @import '../../assets/css/mixin.scss';
     .header {
-        width: 100%;
-        height: 100px;
-        display: flex;
-        justify-content: space-between;
-        // background-color: blue;
-        @include bg_color();
-        position: relative;
-        z-index: 999;
-        .header-left,
-        .header-right {
-            width: 84px;
-            height: 84px;
-            margin-top: 8px;
-        }
         .header-left {
             @include bg_img('../../assets/images/back');
         }

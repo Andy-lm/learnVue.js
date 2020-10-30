@@ -1,6 +1,7 @@
 <template>
     <div class="singer">
-        <ScrollView ref="scrollView">
+        <div class="singer-container">
+            <ScrollView ref="scrollView">
             <ul class="list-container">
                 <li class="list-group" v-for="(value,index) in list" :key="index" ref="group">
                     <h2 class="group-title">{{keys[index]}}</h2>
@@ -12,17 +13,18 @@
                     </ul>
                 </li>
             </ul>
-        </ScrollView>
-        <ul class="list-keys">
+            </ScrollView>
+            <ul class="list-keys">
             <!-- <li v-for="(key,index) in keys" :key="key" @click.stop="keyDown(index)" :class="{'active':currentIndex === index}">{{key}}</li> -->
-            <li v-for="(key,index) in keys" 
-            :key="key" 
-            :data-index="index"
-            @touchstart.stop.prevent="touchstart"
-            @touchmove.stop.prevent="touchmove"
-            :class="{'active':currentIndex === index}">{{key}}</li>
-        </ul>
-        <div class="fix-title" v-show="fixTitle !== ''" ref="fixTitle">{{fixTitle}}</div>
+                <li v-for="(key,index) in keys" 
+                :key="key" 
+                :data-index="index"
+                @touchstart.stop.prevent="touchstart"
+                @touchmove.stop.prevent="touchmove"
+                :class="{'active':currentIndex === index}">{{key}}</li>
+            </ul>
+            <div class="fix-title" v-show="fixTitle !== ''" ref="fixTitle">{{fixTitle}}</div>
+        </div>
         <transition>
             <router-view></router-view>
         </transition>
@@ -34,8 +36,10 @@
 // import {getLetterArtist} from "../api/index"
 import ScrollView from "../components/ScrollView"
 import {getAllArtist} from "../api/index"
+import MetaInfo from "../../vue-meta-info"
 export default {
     name:'Singer',
+    metaInfo:MetaInfo.singer,
     created(){
         getAllArtist().then((result) => {
             console.log(result);
@@ -153,15 +157,18 @@ export default {
 @import '../assets/css/variable.scss';
 @import '../assets/css/mixin.scss';
 .singer {
-    position: fixed;
-    top: 184px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    // background-color: chartreuse;
-    overflow: hidden;
-    @include bg_sub_color();
-    .list-container {
+    width: 100%;
+    height: 100%;
+    .singer-container {
+        position: fixed;
+        top: 184px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        // background-color: chartreuse;
+        overflow: hidden;
+        @include bg_sub_color();
+        .list-container {
         // width: 100%;
         // height: 100%;
         .list-group {
@@ -194,7 +201,7 @@ export default {
             }
         }
     }
-    .list-keys {
+        .list-keys {
         position: fixed;
         right: 10px;
         top: 60%;
@@ -207,8 +214,8 @@ export default {
                 text-shadow: 0 0 10px #000;
             }
         }
-    }
-    .fix-title {
+        }
+        .fix-title {
         position: absolute;
         top: 0;
         left: 0;
@@ -218,7 +225,9 @@ export default {
         @include bg_color();
         @include font_size($font_medium);
         color: #ffffff;
+        }
     }
+    
     .v-enter {
             /* opacity指变化的程度 */
             transform: translateX(100%);

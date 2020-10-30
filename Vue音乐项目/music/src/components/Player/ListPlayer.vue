@@ -137,6 +137,8 @@ export default {
         },
         isShowListPlayer(newValue,oldValue){
           if(newValue){
+            // 这个界面默认是被加载进来的的只不过没有显示，所以当其内部的数据发生变动的时候一定要重新加载一下才能让
+            // scrollView进行滚动
             this.$refs.scrollView.refresh();
           }
         }
