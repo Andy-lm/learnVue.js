@@ -71,6 +71,7 @@ import {mapActions,mapGetters} from "vuex";
         //     // @include bg_img('../../assets/images/more');
         // }
         .header-title {
+            padding: 0 60px;
             display: flex;
             justify-content: center;
             flex-direction: column;

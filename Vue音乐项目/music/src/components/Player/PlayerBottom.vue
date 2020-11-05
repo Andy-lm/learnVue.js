@@ -181,9 +181,9 @@ export default {
     .bottom-controll {
         width: 80%;
         margin: 0 auto;
-        padding: 50px 100px;
+        padding: 50px 0;
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         align-items: center;
         div {
             width: 84px;

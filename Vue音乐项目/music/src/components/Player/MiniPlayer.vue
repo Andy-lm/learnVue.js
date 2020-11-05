@@ -93,6 +93,7 @@ export default {
             @include bg_color();
             .player-left {
                 padding-left: 30px;
+                padding-right: 80px;
                 display: flex;
                 align-items: center;
                 img {
@@ -108,13 +109,18 @@ export default {
                 }
                 .player-title {
                     // text-align: center;
+                    // width: ;
                     h3 {
                         @include font_size($font_medium);
-                        @include font_color();
+                        // @include font_color();
+                        color:#fff;
+                        @include clamp(1);
                     }
                     p {
                        @include font_size($font_medium_s);
-                       @include font_color(); 
+                    //    @include font_color(); 
+                        color:#fff;
+                        @include clamp(1);
                     }
                 }
             }

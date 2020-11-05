@@ -21,7 +21,7 @@
                 :data-index="index"
                 @touchstart.stop.prevent="touchstart"
                 @touchmove.stop.prevent="touchmove"
-                :class="{'active':currentIndex === index}">{{key}}</li>
+                :class="{'active-key':currentIndex === index}">{{key}}</li>
             </ul>
             <div class="fix-title" v-show="fixTitle !== ''" ref="fixTitle">{{fixTitle}}</div>
         </div>
@@ -42,7 +42,7 @@ export default {
     metaInfo:MetaInfo.singer,
     created(){
         getAllArtist().then((result) => {
-            console.log(result);
+            // console.log(result);
             this.keys = result.keys;
             this.list = result.list;
         }).catch(function(err){
@@ -210,7 +210,7 @@ export default {
             @include font_color();
             @include font_size($font_medium_s);
             padding: 3px 0;
-            &.active{
+            &.active-key{
                 text-shadow: 0 0 10px #000;
             }
         }

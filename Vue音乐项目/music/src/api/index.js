@@ -112,7 +112,7 @@ export const getTopListDetail = () => {
       }
       Network.get('toplist/detail')
         .then(function (data) {
-          console.log(data);
+          // console.log(data);
           data.list.forEach(function (obj) {
             let flag = false
             for (let key in category) {

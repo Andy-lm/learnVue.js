@@ -68,10 +68,24 @@ export default {
             }
             list.push(obj);
         });
+        // console.log(list);
         commit('SET_SONG_DETAIL', list);
     },
     async getSongLyric({ commit }, id) {
         let result = await getSongLyrics({id:id})
+        // console.log(result);
+        // if (result.lrc === undefined) {
+        //     result.lrc.lyric = '[00:01.000] 无歌词'
+        //     console.log(111);
+        // }
+        // console.log(result);
+        if (result.lrc === undefined) {
+            let obj = {
+                lyric: '[00:01.000] 无歌词'
+            }
+            result.lrc = obj;
+        }
+        // console.log(result.lrc === undefined);
         // console.log(result);
         let obj = parseLyric(result.lrc.lyric);
         // console.log(obj);

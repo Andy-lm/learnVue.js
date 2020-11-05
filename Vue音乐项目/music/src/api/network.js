@@ -1,10 +1,9 @@
 import axios from 'axios';
 import Vue from 'vue'
-// import { reject, resolve } from 'core-js/fn/promise';
 
 
 // axios.defaults.baseURL = 'http://127.0.0.1:3000/';
-axios.defaults.baseURL = 'http://121.196.185.199:3000/'
+axios.defaults.baseURL = 'http://121.196.185.199:3000/';
 axios.defaults.timeout = 5000;
 let count = 0;
 // 添加请求拦截器
@@ -13,7 +12,7 @@ axios.interceptors.request.use(function (config) {
     count++;
     Vue.showLoading();
     return config;
-  }, function (error) {
+}, function (error) {
     // 对请求错误做些什么
     Vue.hiddenLoading();
     return Promise.reject(error);

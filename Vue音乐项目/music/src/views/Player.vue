@@ -35,6 +35,9 @@ export default {
     },
     methods:{
         ...mapActions([
+            'setFullScreen',
+            'setMiniPlayer',
+            'setIsPlaying',
             'setCurrentIndex',
             'setFavoriteList',
             'setHistorySong',
@@ -57,6 +60,24 @@ export default {
         
     },
     watch:{
+        currentSong(newValue,oldValue){
+            // console.log(newValue);
+            if(newValue.name === ''){
+                console.log('该歌曲无法播放，请切换其他歌曲。');
+                this.setFullScreen(false);
+                this.setMiniPlayer(false);
+                this.$refs.audio.pause();
+                return
+            }
+            this.$refs.audio.ondurationchange = () => {
+                // console.log('currentSong变化1');
+                this.totalTime = this.$refs.audio.duration;
+                this.setHistorySong(this.currentSong);
+                this.setIsPlaying(true);
+                this.$refs.audio.play();
+            }
+            // console.log('currentSong变化2');
+        },
         isPlaying(newValue,oldValue){
             if(newValue){
                 // console.log('play()');
@@ -72,7 +93,7 @@ export default {
             // 因为对于iPhone手机其默认是没有预加载的，所以当我们监听oncanplay时是永远无法触发的
             // 所以最终的解决办法就是使用ondurationchange替代
             // this.$refs.audio.oncanplay = () => {
-                this.$refs.audio.ondurationchange = () => {
+            this.$refs.audio.ondurationchange = () => {
                 // currentIndex变化了
                 // console.log('currentIndex变化了');
                 this.totalTime = this.$refs.audio.duration;

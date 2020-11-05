@@ -72,6 +72,10 @@ export default {
             'setSongDetail'
         ]),
         search(){
+            if(this.keywords === ''){
+                // console.log('11111');
+                return;
+            }
             getSearchList({'keywords':this.keywords}).then((data) =>{
                 // console.log(data);
                 this.songs = data.result.songs;

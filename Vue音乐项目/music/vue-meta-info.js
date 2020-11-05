@@ -13,7 +13,7 @@ export default {
     ]
   },
   singer: {
-    title: '我是singer',
+    title: '歌手界面',
     meta: [
       {
         name: 'keyWords',
@@ -26,7 +26,7 @@ export default {
     ]
   },
   rank: {
-    title: '我是rank',
+    title: '排行榜',
     meta: [
       {
         name: 'keyWords',
@@ -39,7 +39,7 @@ export default {
     ]
   },
   search: {
-    title: '我是search',
+    title: '搜索歌曲',
     meta: [
       {
         name: 'keyWords',
@@ -52,7 +52,7 @@ export default {
     ]
   },
   account: {
-    title: '我是account',
+    title: '听歌历史',
     meta: [
       {
         name: 'keyWords',
@@ -65,7 +65,7 @@ export default {
     ]
   },
   detail: {
-    title: '我是detail',
+    title: '歌曲列表',
     meta: [
       {
         name: 'keyWords',

@@ -4,8 +4,8 @@
         <div slot="left" class="header-left" @click.stop="back"></div>
         <p slot="center" class="header-title">
             <ul>
-                <li :class="{'active': switchNum === 0}" @click.stop="switchItem(0)">我喜欢的</li>
-                <li :class="{'active': switchNum === 1}" @click.stop="switchItem(1)">最近听的</li>
+                <li :class="{'active-account': switchNum === 0}" @click.stop="switchItem(0)">我喜欢的</li>
+                <li :class="{'active-account': switchNum === 1}" @click.stop="switchItem(1)">最近听的</li>
             </ul>
         </p>
         <div slot="right" class="header-right"></div>
@@ -55,8 +55,7 @@
                 text-align: center;
                 color: #fff;
                 font-weight: 700;
-                border: 1px solid #ffffff;
-                
+                border: 1px solid #ffffff;                
                 border-radius: 10px;
                 @include font_size($font_medium_s);
                 height: 60px;
@@ -68,7 +67,7 @@
                     &:nth-of-type(1) {
                         border-right: 1px solid #ffffff;
                     }
-                    &.active{
+                    &.active-account{
                         background: rgba(255,255,255,0.3);
                     }
                 }

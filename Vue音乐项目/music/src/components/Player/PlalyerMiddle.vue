@@ -5,7 +5,7 @@
         <div class="cd-container" ref="cdContainer">
             <img :src="currentSong.picUrl" alt="">
         </div>
-        <p>{{getFirstLyric()}}</p>
+        <p><< 右滑查看歌词 <<</p>
     </swiper-slide>
     <swiper-slide class="lyric" ref="lyric">
         <ScrollView ref="scrollView">
@@ -19,8 +19,9 @@
 </template>
 
 <script>
-import { Swiper, SwiperSlide, directive} from 'vue-awesome-swiper'
-import 'swiper/swiper-bundle.css'
+import 'swiper/dist/css/swiper.css'
+import { swiper, swiperSlide} from 'vue-awesome-swiper'
+// import 'swiper/swiper-bundle.css'
 import ScrollView from '../ScrollView'
 import {mapGetters} from 'vuex'
 export default {
@@ -43,8 +44,8 @@ export default {
         }
     },
     components: {
-        Swiper,
-        SwiperSlide,
+        swiper,
+        swiperSlide,
         ScrollView
     },
     methods:{
@@ -109,7 +110,8 @@ export default {
             this.currentLineNum = this.getActiveLineNum(lineNum);
             if(document.querySelector('li.active') !== null) {
                 let currentLyricTop = document.querySelector('li.active').offsetTop
-                console.log(currentLyricTop);
+                // console.log(document.querySelector('li.active'));
+                // console.log(currentLyricTop);
                 // 容器的高度
                 let lyricHeight = this.$refs.lyric.$el.offsetHeight;
                 if(currentLyricTop >= lyricHeight/2) {
@@ -170,8 +172,9 @@ export default {
         p {
             text-align: center;
             @include font_size($font_medium);
-            @include font_color();
-            margin-top: 50px;
+            // @include font_color();
+            color: #fff;
+            margin-top: 100px;
         }
     }
     .lyric{

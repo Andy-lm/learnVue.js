@@ -30,6 +30,7 @@ export default {
             getPlayList({id: this.$route.params.id}).then((data) => {
             // console.log(data);
                 this.playlist = data.playlist
+                // console.log(this.playlist);
             }).catch((err) => {
                 console.log(err);
             })
