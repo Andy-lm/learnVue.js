@@ -16,15 +16,15 @@ Vue.use(Loading, {
 fastclick.attach(document.body);
 // 图片懒加载
 Vue.use(VueLazyload, {
-  loading:require('./assets/images/loading.png'),
+  loading:require('./assets/images/lazy-img.jpg'),
 })
 Vue.config.productionTip = false;
 // 移动端打开控制台
 const vconsole = new VConsole();
 Vue.use(vconsole);
 // 统一管理SEO标签
-import MetaInfo from 'vue-meta-info'
-Vue.use(MetaInfo)
+// import MetaInfo from 'vue-meta-info'
+// Vue.use(MetaInfo)
 
 
 
@@ -34,8 +34,6 @@ new Vue({
   router,
   store,
   render: h => h(App),
-  mounted: () => document.dispatchEvent(new Event("x-app-rendered")),
-  mounted: () => document.dispatchEvent(new Event("x-app-rendered")),
-  // 预加载自动添加
-  mounted: () => document.dispatchEvent(new Event("x-app-rendered")),
+  // // 预加载自动添加
+  // mounted: () => document.dispatchEvent(new Event("x-app-rendered")),
 }).$mount('#app')

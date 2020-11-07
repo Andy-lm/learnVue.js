@@ -1,8 +1,7 @@
-<template>
-    <div>
-        这里是Lables
-        <Nav></Nav>
-    </div>
+<template>   
+        <Layout>
+            这里是Lables
+        </Layout>
 </template>
 
 <script>

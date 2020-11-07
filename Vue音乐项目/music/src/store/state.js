@@ -11,5 +11,7 @@ export default {
     currentLyric:{},
     curTime:0,
     favoriteList:[],
-    historyList:[]
+    historyList: [],
+    isShowSelect:false
+    
 }

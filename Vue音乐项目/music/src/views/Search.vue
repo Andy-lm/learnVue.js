@@ -39,10 +39,10 @@ import ScrollView from "../components/ScrollView"
 import {getSearchList,getSearchHot} from "../api/index"
 import { mapActions } from 'vuex'
 import {setLocalStorage,getLocalStorage} from "../tools/tools"
-import MetaInfo from "../../vue-meta-info"
+// import MetaInfo from "../../vue-meta-info"
 export default {
     name:'Search',
-    metaInfo:MetaInfo.search,
+    // metaInfo:MetaInfo.search,
     components:{
         ScrollView
     },

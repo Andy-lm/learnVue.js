@@ -30,8 +30,7 @@
                 </li>
             </ul>
             </ScrollView>
-        </div>
-        
+        </div>        
         <transition>
             <router-view></router-view>
         </transition>
@@ -41,10 +40,10 @@
 <script>
 import {getTopListDetail} from "../api/index"
 import ScrollView from "../components/ScrollView"
-import MetaInfo from "../../vue-meta-info"
+// import MetaInfo from "../../vue-meta-info"
 export default {
     name:'Rank',
-    metaInfo:MetaInfo.rank,
+    // metaInfo:MetaInfo.rank,
     components:{
         ScrollView
     },
@@ -61,7 +60,8 @@ export default {
     },
     created(){
         getTopListDetail().then((data) =>{
-            console.log(data);
+            // console.log(data);
+            
             // console.log(data.globalList);
             this.category = data;
         }).catch(function(err){

@@ -78,9 +78,9 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  // mode:'hash',
+  mode:'hash',
   // 预加载只能是history模式
-  mode: 'history',
+  // mode: 'history',
   base: process.env.BASE_URL,
   routes
 })

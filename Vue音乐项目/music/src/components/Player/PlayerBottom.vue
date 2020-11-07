@@ -158,11 +158,12 @@ export default {
                 margin: 0 10px;
                 height: 10px;
                 width: 100%;
-                background-color: blueviolet;
+                background-color: #fff;
                 .progress-line {
                     width: 0%;
                     height: 100%;
-                    background-color: brown;
+                    // background-color: brown;
+                    @include bg_color();
                     position: relative;
                     .progress-dot {
                         position: absolute;
@@ -172,7 +173,9 @@ export default {
                         width: 20px;
                         height: 20px;
                         border-radius: 50%;
-                        background-color: chartreuse;
+                        // @include bg_color();
+                        background-color: #fff;
+                        // background-color: chartreuse;
                     }
                 }
             }

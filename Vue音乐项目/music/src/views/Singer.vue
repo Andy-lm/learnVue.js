@@ -36,10 +36,10 @@
 // import {getLetterArtist} from "../api/index"
 import ScrollView from "../components/ScrollView"
 import {getAllArtist} from "../api/index"
-import MetaInfo from "../../vue-meta-info"
+// import MetaInfo from "../../vue-meta-info"
 export default {
     name:'Singer',
-    metaInfo:MetaInfo.singer,
+    // metaInfo:MetaInfo.singer,
     created(){
         getAllArtist().then((result) => {
             // console.log(result);

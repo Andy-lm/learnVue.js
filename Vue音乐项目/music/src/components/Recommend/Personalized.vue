@@ -60,6 +60,7 @@ export default {
                 @include font_size($font_large);
                 font-weight: bold;
                 @include font_color();
+                // @include font_active_color();
             }
         }
         .personalized-list {

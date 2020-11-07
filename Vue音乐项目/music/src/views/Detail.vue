@@ -16,10 +16,10 @@ import DetailTop from "../components/Detail/DetailTop"
 import DetailBottom from "../components/Detail/DetailBottom"
 import ScrollView from  "../components/ScrollView"
 import {getPlayList,getAlbum,getArtistsSongs} from "../api/index.js";
-import MetaInfo from "../../vue-meta-info"
+// import MetaInfo from "../../vue-meta-info"
 export default {
     name:"Detail",
-    metaInfo:MetaInfo.detail,
+    // metaInfo:MetaInfo.detail,
     data(){
         return {
             playlist:{}

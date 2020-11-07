@@ -1,8 +1,7 @@
-<template>
-    <div>
+<template>    
+    <Layout>
         这里是Statistic
-        <Nav></Nav>
-    </div>
+    </Layout>
 </template>
 
 <script>

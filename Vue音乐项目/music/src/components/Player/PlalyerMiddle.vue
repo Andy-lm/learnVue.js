@@ -129,7 +129,6 @@ export default {
                 return
             }
         },
-
     },
     props:{
         currentTime:{

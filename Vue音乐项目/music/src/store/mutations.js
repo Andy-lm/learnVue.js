@@ -12,7 +12,8 @@ import {
     SET_FAVORITE_SONG,
     SET_FAVORITE_LIST,
     SET_HISTORY_LIST,
-    SET_HISTORY_SONG
+    SET_HISTORY_SONG,
+    SET_SHOW_SELECT
 } from "./mutations-type";
 export default {
     // changeFullScreen(state,flag) {
@@ -102,5 +103,8 @@ export default {
             }
             state.historyList.push(song);
         }
+    },
+    [SET_SHOW_SELECT](state, flag) {
+        state.isShowSelect = flag;
     }
 }

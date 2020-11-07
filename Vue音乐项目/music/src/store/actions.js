@@ -12,7 +12,8 @@ import {
     SET_FAVORITE_SONG,
     SET_FAVORITE_LIST,
     SET_HISTORY_LIST,
-    SET_HISTORY_SONG
+    SET_HISTORY_SONG,
+    SET_SHOW_SELECT
 } from "./mutations-type";
 import { getSongDetail,getSongLyrics,getSongURL } from "../api/index"
 export default {
@@ -111,6 +112,9 @@ export default {
     },
     setHistoryList({commit},song) {
         commit('SET_HISTORY_LIST', song); 
+    },
+    setShowSelect({commit},flag) {
+        commit('SET_SHOW_SELECT', flag); 
     }
 }
 // 格式化歌词的方法

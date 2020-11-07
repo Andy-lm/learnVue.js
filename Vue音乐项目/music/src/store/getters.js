@@ -44,5 +44,8 @@ export default {
     },
     historyList(state) {
         return state.historyList;
+    },
+    isShowSelect(state) {
+        return state.isShowSelect;
     }
 }

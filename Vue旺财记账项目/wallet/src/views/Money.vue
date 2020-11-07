@@ -1,8 +1,7 @@
-<template>
-    <div>
-        这里是Money组件
-        <Nav></Nav>
-    </div>
+<template>    
+        <Layout>
+            这里是Money组件 
+        </Layout>
 </template>
 
 <script>
@@ -12,5 +11,4 @@
 </script>
 
 <style lang="scss" scoped>
-
 </style>

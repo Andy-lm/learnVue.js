@@ -21,13 +21,23 @@ export default {
         ...mapActions([
             "setFullScreen",
             "setMiniPlayer",
-            "setSongDetail"
+            "setSongDetail",
+            'setCurrentIndex'
         ]),
         selectMusic(id){
             // this.$store.dispatch('setFullScreen',true);
             this.setFullScreen(true);
             this.setMiniPlayer(false);
+            // console.log(id);
+            let ids = this.playlist.map(item =>{
+                return item.id;
+            })
             this.setSongDetail([id])
+            // let currentIndex = ids.indexOf(id);
+            // console.log(currentIndex);
+            // this.setSongDetail(ids);
+            // this.setCurrentIndex(currentIndex);
+            
         },
         selectAllMusic(){
             this.setFullScreen(true);

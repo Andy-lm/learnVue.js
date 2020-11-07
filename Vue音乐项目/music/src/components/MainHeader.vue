@@ -2,20 +2,32 @@
     <Header class="header">
         <div slot="left" class="header-left"></div>
         <p slot="center" class="header-title">FANTA</p>
-        <div slot="right" class="header-right" @click.stop="accountClick"></div>
+        <div slot="right" class="header-right" @click.stop="showSelect"></div>
     </Header>
 </template>
 
 <script>
 import Header from "./Header"
+import {mapGetters,mapActions} from "vuex" 
 export default {
     name:"MainHeader",
     components:{
         Header
     },
+    computed:{
+        ...mapGetters([
+            'isShowSelect'
+        ])
+    },
     methods:{
-        accountClick(){
-            this.$router.push('/account');
+        ...mapActions([
+            'setShowSelect'
+        ]),
+        // accountClick(){
+        //     this.$router.push('/account');
+        // }
+        showSelect(){
+            this.setShowSelect(!this.isShowSelect);
         }
     }
 }

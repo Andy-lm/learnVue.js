@@ -103,9 +103,9 @@ export const getTopListDetail = () => {
         otherList: [
           { name: 'KTV唛榜', id: 7 },
           { name: '法国 NRJ Vos Hits 周榜', id: 19 },
-          { name: '新声榜', id: 27 },
+          // { name: '新声榜', id: 27 },
           { name: '云音乐韩语榜', id: 28 },
-          { name: '电竞音乐榜', id: 30 },
+          // { name: '电竞音乐榜', id: 30 },
           { name: '云音乐欧美热歌榜', id: 31 }
         ],
         titles: { officialList: '官方榜', recList: '推荐榜', globalList: '全球榜', otherList: '更多榜单' }

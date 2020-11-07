@@ -2,8 +2,8 @@ import axios from 'axios';
 import Vue from 'vue'
 
 
-// axios.defaults.baseURL = 'http://127.0.0.1:3000/';
-axios.defaults.baseURL = 'http://121.196.185.199:3000/';
+axios.defaults.baseURL = 'http://127.0.0.1:3000/';
+// axios.defaults.baseURL = 'http://121.196.185.199:3000/';
 axios.defaults.timeout = 5000;
 let count = 0;
 // 添加请求拦截器
