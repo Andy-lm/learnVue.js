@@ -49,11 +49,11 @@ export default {
         ScrollView
     },
     methods:{
-        getFirstLyric(){
-            for(let k in this.currentLyric) {
-                return this.currentLyric[k]
-            }
-        },
+        // getFirstLyric(){
+        //     for(let k in this.currentLyric) {
+        //         return this.currentLyric[k]
+        //     }
+        // },
         getActiveLineNum(lineNum){
             if(lineNum < 0) {
                 return this.currentLineNum;

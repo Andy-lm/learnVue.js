@@ -45,6 +45,7 @@ export default {
         ]),
         timeupdate(e){
             this.currentTime = e.target.currentTime;
+            // console.log (this.currentTime)
         },
         end(){
             // 当歌曲播放完成后执行这个函数

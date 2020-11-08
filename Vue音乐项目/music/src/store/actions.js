@@ -90,6 +90,7 @@ export default {
         // console.log(result);
         let obj = parseLyric(result.lrc.lyric);
         // console.log(obj);
+        // console.log(obj);
         commit('SET_SONG_LYRIC', obj);
     },
     setDelSong({commit},index) {

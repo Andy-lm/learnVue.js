@@ -150,11 +150,10 @@ export default {
             justify-content: space-between;
             align-items: center;
             span{
-            @include font_size($font_samll);
-            @include font_color();
+                @include font_size($font_samll);
+                @include font_color();
             }
-            .progress-bar {
-                
+            .progress-bar {                
                 margin: 0 10px;
                 height: 10px;
                 width: 100%;
@@ -167,6 +166,7 @@ export default {
                     position: relative;
                     .progress-dot {
                         position: absolute;
+                        // 达到垂直居中
                         top: 50%;
                         transform: translateY(-50%);
                         left: 100%;
