@@ -12,7 +12,7 @@
                             <p>{{obj.rank.updateFrequency}}</p>
                         </div>
                         <div class="rank-right">
-                            <p v-for="(song, index) in obj.rank.tracks" :key="song.first">{{index}}.{{song.first}}-{{song.second}}</p>
+                            <p v-for="(song) in obj.rank.tracks" :key="song.first">{{song.first}}-{{song.second}}</p>
                         </div>
                     </li>
                     </ul>
@@ -28,6 +28,7 @@
                         </li>
                     </ul>
                 </li>
+                <li class="bin" v-if="isShowMiniPlayer"></li>
             </ul>
             </ScrollView>
         </div>        
@@ -41,6 +42,7 @@
 import {getTopListDetail} from "../api/index"
 import ScrollView from "../components/ScrollView"
 // import MetaInfo from "../../vue-meta-info"
+import {mapGetters} from "vuex"
 export default {
     name:'Rank',
     // metaInfo:MetaInfo.rank,
@@ -52,7 +54,11 @@ export default {
             category:{}
         }
     },
-    
+    computed:{
+        ...mapGetters([
+            'isShowMiniPlayer'
+        ])
+    },
     methods:{
         selectItem(id){
             this.$router.push(`/rank/detail/${id}/rank`);
@@ -60,8 +66,7 @@ export default {
     },
     created(){
         getTopListDetail().then((data) =>{
-            // console.log(data);
-            
+            // console.log(data);            
             // console.log(data.globalList);
             this.category = data;
         }).catch(function(err){
@@ -78,6 +83,10 @@ export default {
     width: 100%;
     height: 100%;
     .rank-container {
+        .bin {
+            width: 100%;
+            height: 150px;
+        }
         position: fixed;
         top: 184px;
         left: 0;
@@ -156,6 +165,7 @@ export default {
                     @include clamp(1);
                 }
             }
+        
         }
     }
     }

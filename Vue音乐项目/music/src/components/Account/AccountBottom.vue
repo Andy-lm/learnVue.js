@@ -53,7 +53,7 @@ export default {
     computed:{
         ...mapGetters([
             'favoriteList',
-            'historyList'
+            'historyList',
         ])
     },
     props:{

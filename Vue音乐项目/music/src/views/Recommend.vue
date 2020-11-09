@@ -7,6 +7,7 @@
                 <Personalized :personalized="personalized" :title="'推荐歌单'" @select="fatherSelectItem" :type="'personalized'"></Personalized>
                 <Personalized :personalized="albums" :title="'最新专辑'" @select="fatherSelectItem" :type="'album'"></Personalized>
                 <NewSong :newsongs="newsongs"></NewSong>
+                <div class="bin" v-if="isShowMiniPlayer"></div>
             </div>
             </ScrollView>
         </div>
@@ -24,7 +25,7 @@ import Personalized from '../components/Recommend/Personalized';
 import NewSong from '../components/Recommend/NewSong';
 import ScrollView from '../components/ScrollView';
 // import MetaInfo from "../../vue-meta-info"
-
+import {mapGetters} from "vuex"
 export default {
     name:"Recommend",
     // metaInfo:MetaInfo.recommend,
@@ -43,6 +44,11 @@ export default {
                 path:`/recommend/detail/${id}/${type}`
             })
         }
+    },
+    computed:{
+        ...mapGetters([
+            'isShowMiniPlayer'
+        ])
     },
     components:{
         Banner,
@@ -112,6 +118,10 @@ export default {
             width: 100%;
             height: 100%;
             overflow: hidden;
+            .bin {
+                width: 100%;
+                height: 150px;
+            }
         }
     }
         .v-enter {

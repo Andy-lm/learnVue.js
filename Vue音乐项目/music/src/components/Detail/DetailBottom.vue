@@ -10,13 +10,19 @@
                 <p>{{value.al.name}} - {{value.ar[0].name}}</p>
             </div>
         </li>
+        <li class="bin" v-if="isShowMiniPlayer"></li>
     </ul>
 </template>
 
 <script>
-import {mapActions} from "vuex";
+import {mapActions,mapGetters} from "vuex";
 export default {
     name:"DetailBottom",
+    computed:{
+        ...mapGetters([
+            'isShowMiniPlayer'
+        ])
+    },
     methods:{
         ...mapActions([
             "setFullScreen",
@@ -63,6 +69,7 @@ export default {
     @import '../../assets/css/mixin.scss';
     .detail-bottom {
         width: 100%;
+        
         li {
             display: flex;
             align-items: center;
@@ -72,6 +79,10 @@ export default {
             box-sizing: border-box;
             @include bg_sub_color();
             border-top: 1px solid #cccccc;
+            &.bin {
+                width: 100%;
+                height: 150px;
+            }
         }
         .bottom-top {
             // display: flex;

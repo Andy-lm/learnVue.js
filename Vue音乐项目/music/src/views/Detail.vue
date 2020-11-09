@@ -5,6 +5,7 @@
             <div class="bottom">
                 <ScrollView ref="scrollview">
                     <DetailBottom :playlist="playlist.tracks"></DetailBottom>
+                    
                 </ScrollView>
             </div>
     </div>
@@ -16,6 +17,7 @@ import DetailTop from "../components/Detail/DetailTop"
 import DetailBottom from "../components/Detail/DetailBottom"
 import ScrollView from  "../components/ScrollView"
 import {getPlayList,getAlbum,getArtistsSongs} from "../api/index.js";
+
 // import MetaInfo from "../../vue-meta-info"
 export default {
     name:"Detail",
@@ -115,6 +117,10 @@ export default {
             left: 0;
             right: 0;
             bottom: 0;
+            .bin {
+                width: 100%;
+                height: 555px;
+            }
         }
     }
 </style>

@@ -44,9 +44,9 @@
         .header-left {
             @include bg_img('../../assets/images/back');
         }
-        .header-right {
-            @include bg_img('../../assets/images/more');
-        }
+        // .header-right {
+        //     // @include bg_img('../../assets/images/more');
+        // }
         .header-title {
             ul {
                 display: flex;
