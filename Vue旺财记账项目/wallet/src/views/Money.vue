@@ -2,33 +2,32 @@
   <Layout class-prefix="layout">
     <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
     <Types :value.sync="record.type"/>
-    <Notes @update:value="onUpdateNotes"/>
+    <FormItem :filed-name="'备注'" 
+    @update:value="onUpdateNotes"
+    :placeholder="'在这里输入备注'"/>
     <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
-    {{record}}
   </Layout>
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+  import Vue from "vue";
   import NumberPad from '@/components/Money/NumberPad.vue';
-  import Notes from '@/components/Money/Notes.vue';
+  import FormItem from '@/components/Money/FormItem.vue';
   import Tags from '@/components/Money/Tags.vue';
   import Types from '@/components/Money/Types.vue';
   import {Component,Watch} from 'vue-property-decorator';
-  type Record = {
-    tags:string[],
-    notes:string,
-    type:string,
-    amount:number, // 可以是数据类型
-    createdAt?:Date // 可以是类 | 构造函数
-  }
+  import recordListModel from "@/models/recordListModel";
+  import tagListModel from "@/models/tagListModel";
+  const recordList = recordListModel.fetch();
+  const tagList = tagListModel.fetch();
+
   @Component({
-    components: {Tags, Notes, Types, NumberPad}
+    components: {Tags, FormItem, Types, NumberPad}
   })
   export default class Money extends Vue {
-    tags:string[] = ['衣','食','住','行'];
-    recordList:Record[] = JSON.parse(window.localStorage.getItem('recordList') || '[]');
-    record:Record = {
+    tags = tagList;
+    recordList:RecordItem[] = recordList;
+    record:RecordItem = {
       tags:[],
       notes:'',
       type:'-',
@@ -44,13 +43,13 @@ import Vue from "vue";
       this.record.amount = parseFloat(value);
     }
     saveRecord(){
-      let cloneRecord:Record = JSON.parse(JSON.stringify(this.record));
+      let cloneRecord:RecordItem = recordListModel.clone(this.record);
       cloneRecord.createdAt = new Date();
       this.recordList.push(cloneRecord);
     }
     @Watch('recordList')
-    onRecordListChange(newValue:Record){
-      window.localStorage.setItem('recordList',JSON.stringify(this.recordList));
+    onRecordListChange(newValue:RecordItem){
+      recordListModel.save(this.recordList);
     }
   }
 </script>

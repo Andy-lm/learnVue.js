@@ -12,6 +12,7 @@ body{
   font-family: $font_hei;
   color:#333;
   font-size: 16px;
+  background: #f5f5f5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
