@@ -5,7 +5,9 @@
     <FormItem :filed-name="'备注'" 
     @update:value="onUpdateNotes"
     :placeholder="'在这里输入备注'"/>
-    <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
+    <div class="notes">
+      <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
+    </div>
   </Layout>
 </template>
 
@@ -58,5 +60,8 @@
   .layout-content {
     display: flex;
     flex-direction: column-reverse;
+  }
+  .notes {
+    padding: 12px 0;
   }
 </style>

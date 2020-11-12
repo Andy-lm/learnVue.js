@@ -7,7 +7,8 @@ type tagListModel = {
     data: Tag[],
     fetch: () => Tag[],
     create: (name: string) => 'success' | 'duplicated', // success表示成功 duplicated表示name重复
-    save:() => void
+    save: () => void,
+    update:(id:string,name:string) => 'success' | 'not found' | 'duplicated'
 }
 const tagListModel: tagListModel = {
     data:[],
@@ -24,6 +25,10 @@ const tagListModel: tagListModel = {
         this.data.push({id:name,name:name});
         this.save();
         return 'success';
+    },
+    update(id,name) {
+        const idList = this.data.map(item => item.id);
+        
     }
 }
 
