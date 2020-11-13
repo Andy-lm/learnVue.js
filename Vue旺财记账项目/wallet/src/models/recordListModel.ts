@@ -1,13 +1,18 @@
+import clone from '../lib/clone';
 const localStorageName = 'recordList';
 const recordListModel = {
-    clone(data:RecordItem[] | RecordItem) {
-        return JSON.parse(JSON.stringify(data));
+    data:[] as RecordItem[], 
+    create(record:RecordItem) {
+        let cloneRecord:RecordItem = clone(record);
+        cloneRecord.createdAt = new Date();
+        this.data.push(cloneRecord);
     },
     fetch() {
-        return JSON.parse(window.localStorage.getItem(localStorageName) || '[]') as RecordItem[];
+        this.data = JSON.parse(window.localStorage.getItem(localStorageName) || '[]') as RecordItem[];
+        return this.data; 
     },
-    save(data:RecordItem[]) {
-        window.localStorage.setItem(localStorageName,JSON.stringify(data));
+    save() {
+        window.localStorage.setItem(localStorageName,JSON.stringify(this.data));
     }
 }
 
