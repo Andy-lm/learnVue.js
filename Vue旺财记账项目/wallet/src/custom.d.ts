@@ -3,9 +3,13 @@ type RecordItem = {
     notes:string,
     type:string,
     amount:number, // 可以是数据类型
-    createdAt?:Date // 可以是类 | 构造函数
+    createdAt?:string // 可以是类 | 构造函数
 }
-
+type RootState = {
+    recordList:RecordItem[],
+    tagList:Tag[],
+    currentTag?:Tag
+}
 type Tag = {
     id: string,
     name:string
