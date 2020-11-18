@@ -24,7 +24,8 @@
 <script>
 import {mapActions,mapGetters} from "vuex";
 import modeType from '../../store/modeType';
-import {formartTime} from '../../tools/tools';
+import {formartTime, getRandomIntInclusive} from '../../tools/tools';
+import mode from "@/store/modeType"
 export default {
     name:"PlayerBottom",
     methods:{
@@ -51,7 +52,6 @@ export default {
             this.setCurrentTime(currentTime);
         },
         play(){
-            // this.$store.dispatch('setIsPlaying',!this.$store.state.isPlaying)
             this.setIsPlaying(!this.isPlaying);
         },
         mode(){
@@ -64,10 +64,24 @@ export default {
             }
         },
         prev(){
-            this.setCurrentIndex(this.currentIndex - 1);
+            if(this.modeType === mode.loop) {
+                this.setCurrentIndex(this.currentIndex - 1);
+            } else if(this.modeType === mode.one){
+                return
+            }else if(this.modeType === mode.random) {
+                let index = getRandomIntInclusive(0,this.$store.state.songs.length - 1);
+                this.setCurrentIndex(index);
+            }
         },
         next(){
-            this.setCurrentIndex(this.currentIndex + 1);
+            if(this.modeType === mode.loop) {
+                this.setCurrentIndex(this.currentIndex + 1);
+            } else if(this.modeType === mode.one){
+                return
+            }else if(this.modeType === mode.random) {
+                let index = getRandomIntInclusive(0,this.$store.state.songs.length - 1);
+                this.setCurrentIndex(index);
+            }
         },
         favorite(){
             this.setFavoriteSong(this.currentSong);
@@ -85,7 +99,8 @@ export default {
             'modeType',
             'currentIndex',
             'currentSong',
-            'favoriteList'
+            'favoriteList',
+            'modeType'
         ])
     },
     watch:{

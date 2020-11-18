@@ -5,7 +5,7 @@
         <p class="header-title">FANTA</p>
         <div class="header-right" @click.stop="accountClick"></div>
     </div> -->
-    <div class="header" @click="changeTheme">
+    <div class="header">
             <div class="left">
                 <slot name="left" class="left">左边</slot>
             </div>
@@ -20,26 +20,6 @@
     // 这里使用ES6模块化代码将这个对象暴露出去
     export default {
         name: 'Header',
-        data:function(){
-            return {
-                theme:['theme','theme2'],
-                // index:0
-            }
-        },
-        methods:{
-             changeTheme() {
-                // this.index++;
-                // if(this.index >= this.theme.length) {
-                //     this.index = 0;
-                // }
-                if(document.documentElement.getAttribute("data-theme") === 'theme'){
-                    document.documentElement.setAttribute("data-theme", 'theme2');
-                }else {
-                    document.documentElement.setAttribute("data-theme", 'theme');
-                }
-                // document.documentElement.setAttribute("data-theme", this.theme[this.index]);
-            }
-        }
     }
 </script>
 <!-- 用于编写当前组件样式代码 -->

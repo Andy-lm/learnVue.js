@@ -76,6 +76,7 @@ export default {
         // 使用ref不仅仅可以获取原生的元素，还可以获取获取组件
         this.$refs.scrollview.scrolling((offsetY) =>{
             // console.log(offsetY);
+            if(this.$refs.top.$el === undefined) return;
             if(offsetY > 0) {
                 // console.log("向下滚动");
                 let scale = 1 + offsetY / defaultHeight;

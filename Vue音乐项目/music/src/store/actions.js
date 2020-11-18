@@ -13,7 +13,8 @@ import {
     SET_FAVORITE_LIST,
     SET_HISTORY_LIST,
     SET_HISTORY_SONG,
-    SET_SHOW_SELECT
+    SET_SHOW_SELECT,
+    SET_INITIAL_CURRENT_INDEX
 } from "./mutations-type";
 import { getSongDetail,getSongLyrics,getSongURL } from "../api/index"
 export default {
@@ -116,6 +117,9 @@ export default {
     },
     setShowSelect({commit},flag) {
         commit('SET_SHOW_SELECT', flag); 
+    },
+    setInitialCurrentIndex({commit},index) {
+        commit('SET_INITIAL_CURRENT_INDEX', index); 
     }
 }
 // 格式化歌词的方法

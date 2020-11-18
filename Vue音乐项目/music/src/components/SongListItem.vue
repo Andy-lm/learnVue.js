@@ -31,6 +31,8 @@ export default {
     ]),
     selectMusic (id) {
       this.setFullScreen(true)
+      let audioObj = document.querySelector('audio');
+      audioObj.play();
       this.setSongDetail([id])
     }
   }

@@ -49,6 +49,11 @@ export default {
         },
         end(){
             // 当歌曲播放完成后执行这个函数
+            if (this.$store.state.songs.length === 1){
+                this.$refs.audio.pause();
+                this.setIsPlaying(false);
+                return
+            } 
             if(this.modeType === mode.loop) {
                 this.setCurrentIndex(this.currentIndex + 1);
             } else if(this.modeType === mode.one){
@@ -62,9 +67,16 @@ export default {
     },
     watch:{
         currentSong(newValue,oldValue){
+            // console.log(this.$store.state.songs);
             // console.log(newValue);
             if(newValue.name === ''){
-                console.log('该歌曲无法播放，请切换其他歌曲。');
+                if(this.$store.state.songs.length === 0){
+                    this.setFullScreen(false);
+                    this.setMiniPlayer(false);
+                    this.$refs.audio.pause();
+                    return
+                };
+                alert('该歌曲可能由于版权无法播放，请切换其他歌曲。');
                 this.setFullScreen(false);
                 this.setMiniPlayer(false);
                 this.$refs.audio.pause();

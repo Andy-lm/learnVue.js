@@ -20,8 +20,8 @@
         display: flex;
         flex-direction: column;
         // border: 1px solid green;
-        // min-height: 100vh;
-        height: 100vh;
+        min-height: 100vh;
+        // height: 100vh;
         .content {
             // border: 1px solid black;
             overflow: auto;

@@ -1,5 +1,5 @@
 type RecordItem = {
-    tags:string[],
+    tags:Tag[],
     notes:string,
     type:string,
     amount:number, // 可以是数据类型
@@ -8,7 +8,8 @@ type RecordItem = {
 type RootState = {
     recordList:RecordItem[],
     tagList:Tag[],
-    currentTag?:Tag
+    currentTag?: Tag,
+    createRecordError:Error | null
 }
 type Tag = {
     id: string,

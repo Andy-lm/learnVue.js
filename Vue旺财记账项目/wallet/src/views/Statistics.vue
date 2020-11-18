@@ -2,67 +2,98 @@
     <Layout>
         <Tabs class-prefix="type" 
         :data-source="recordTypeList" :value.sync="type"></Tabs>
-        <Tabs class-prefix="interval" 
-        :data-source="itervalList" :value.sync="interval" height="48px"></Tabs>
-        <div>
-            {{type}}{{interval}}
-            <ol >
-                <li v-for="(group,index) in result" :key="index">
-                    <h3>{{group.title}}</h3>
+            <ol v-if="groupedList.length > 0">
+                <li v-for="(group,index) in groupedList" :key="index">
+                    <h3 class="title">{{beautify(group.title)}} <span>￥{{group.total}}</span></h3>
                     <ol>
-                        <li v-for="item in group.items" :key="item.id">
-                            {{item.amount}} --- {{item.createdAt}}
+                        <li v-for="item in group.items" :key="item.id" class="record">
+                            <span>{{tagsString(item.tags)}}</span>
+                            <span class="notes">{{item.notes}}</span>
+                            <span>￥{{item.amount}}</span>
                         </li>
                     </ol>
                 </li>
             </ol>
-        </div>
+            <div v-else class="noResult">
+                目前没有相关记录
+            </div>
     </Layout>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
-import itervalList from '../constants/intervalList';
 import recordTypeList from '../constants/recordTypeList';
 import Tabs from '../components/Tabs.vue';
+import dayjs from 'dayjs';
+import clone from '@/lib/clone';
+
 @Component({
     components:{Tabs}
 })
 
 export default class Statistics extends Vue{
-
+type = '-';
+recordTypeList = recordTypeList;
 get recordList(){
     return (this.$store.state as RootState).recordList;
 }
-get result(){
-    type Items = RecordItem[];
-    type hashTableValue = {title:string,items:Items};
+get groupedList(){
     const {recordList} = this;
-    const hashTable:{[key:string]:hashTableValue} = {};
-    for(let i = 0;i<recordList.length;i++) {
-        const [date,time] = recordList[i].createdAt!.split('T');
-        hashTable[date] = hashTable[date] || {title:date,items:[]};
-        hashTable[date].items.push(recordList[i]);
+    type Result = {title:string,total?:number,items:RecordItem[]}[];
+    const newList = clone(recordList).filter(r => r.type === this.type)
+    .sort((a,b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
+
+
+    if(newList.length === 0) return [];
+    const result:Result = [{title:dayjs(newList[0].createdAt).format('YYYY-MM-DD'),items:[newList[0]]}]
+    for(let i = 1;i<newList.length;i++) {
+        const current = newList[i];
+        const last = result[result.length - 1];
+        if(dayjs(last.title).isSame(dayjs(current.createdAt),'day')){
+            last.items.push(current);
+        }else {
+            result.push({title:dayjs(current.createdAt).format('YYYY-MM-DD'),items:[current]});
+        }
     }
-    return hashTable;
+    result.map(group => {
+        group.total = group.items.reduce(function(sum,item) {
+            return sum + item.amount
+        },0);
+    })
+    return result;
+}
+tagsString(tags:Tag[]){
+    return tags.length === 0? '无':tags.map(t => t.name).join('，');
+}
+beautify(string:string){
+    const day = dayjs(string); // 创建时间
+    const now = dayjs(); // 现在时间
+    if(day.isSame(now,'day')){
+        return '今天'
+    }else if(day.isSame(now.subtract(1,'day'),'day')){
+        return '昨天'
+    }else if(day.isSame(now.subtract(2,'day'),'day')) {
+        return '前天'
+    }else if(day.isSame(now,'year')){
+        return day.format('M月D日');
+    }else {
+        return day.format('YYYY年M月D日');
+    }
 }
 created(){
     this.$store.commit('fetchRecords');
 }
-type = '-';
-interval = 'day';
-itervalList = itervalList;
-recordTypeList = recordTypeList;
+
 }
 </script>
 
 <style lang="scss" scoped>
     ::v-deep {
         .type-tabs-item{
-            background: white;
+            background: #c4c4c4;
             &.selected {
-                background: #c4c4c4;
+                background: white;
                 &::after {
                     display: none;
                 }
@@ -72,4 +103,29 @@ recordTypeList = recordTypeList;
         //     height: 48px;
         // }
     }
+%item {
+    padding: 0 16px;
+    min-height: 40px;
+    padding: 8px 16px;
+    line-height: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+.title {
+    @extend %item;
+}
+.record {
+    background: white;
+    @extend %item;
+}
+.notes {
+    margin-right: auto;
+    margin-left: 16px;
+    color: #999;
+}
+.noResult {
+    padding: 16px;
+    text-align: center;
+}
 </style>

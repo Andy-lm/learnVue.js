@@ -20,7 +20,8 @@ export default {
     name:"DetailBottom",
     computed:{
         ...mapGetters([
-            'isShowMiniPlayer'
+            'isShowMiniPlayer',
+            'currentIndex'
         ])
     },
     methods:{
@@ -28,29 +29,28 @@ export default {
             "setFullScreen",
             "setMiniPlayer",
             "setSongDetail",
-            'setCurrentIndex'
+            'setCurrentIndex',
+            "setInitialCurrentIndex"
         ]),
         selectMusic(id){
-            // this.$store.dispatch('setFullScreen',true);
             this.setFullScreen(true);
             this.setMiniPlayer(false);
-            // console.log(id);
             let ids = this.playlist.map(item =>{
                 return item.id;
             })
-            this.setSongDetail([id])
-            // let currentIndex = ids.indexOf(id);
-            // console.log(currentIndex);
-            // this.setSongDetail(ids);
-            // this.setCurrentIndex(currentIndex);
-            
+            let currentIndex = ids.indexOf(id);
+            let audioObj = document.querySelector('audio');
+            audioObj.play();
+            this.setInitialCurrentIndex(currentIndex);
+            this.setSongDetail(ids);
         },
         selectAllMusic(){
             this.setFullScreen(true);
             let ids = this.playlist.map(item =>{
                 return item.id;
             })
-            // console.log(ids);
+            let audioObj = document.querySelector('audio');
+            audioObj.play();
             this.setSongDetail(ids)
         }
     },

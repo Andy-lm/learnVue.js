@@ -13,7 +13,8 @@ import {
     SET_FAVORITE_LIST,
     SET_HISTORY_LIST,
     SET_HISTORY_SONG,
-    SET_SHOW_SELECT
+    SET_SHOW_SELECT,
+    SET_INITIAL_CURRENT_INDEX
 } from "./mutations-type";
 export default {
     // changeFullScreen(state,flag) {
@@ -106,5 +107,8 @@ export default {
     },
     [SET_SHOW_SELECT](state, flag) {
         state.isShowSelect = flag;
+    },
+    [SET_INITIAL_CURRENT_INDEX](state, index) {
+        state.currentIndex = index;
     }
 }
