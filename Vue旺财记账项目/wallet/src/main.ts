@@ -12,10 +12,9 @@ Vue.component('Layout', Layout);
 Vue.component('Icon', Icon);
 Vue.config.productionTip = false
 
-
-
 new Vue({
   router,
   store,
   render: h => h(App)
 }).$mount('#app')
+

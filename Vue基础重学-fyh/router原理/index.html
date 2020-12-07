@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #page1,#page2,#page3,#page4,#page404 {
+            display: none;
+        }
+
+    </style>
+    <script src="./index.js"></script>
+</head>
+<body>
+    <a href="#1">显示1</a>
+    <a href="#2">显示2</a>
+    <a href="#3">显示3</a>
+    <a href="#4">显示4</a>
+    <hr>
+    <div id="app">
+    </div>
+    <div id="page1">1</div>
+    <div id="page2">2</div>
+    <div id="page3">3</div>
+    <div id="page4">4</div>
+    <div id="page404">404 Not Found</div>
+    <script>
+        route();
+        window.addEventListener('hashchange',function(){
+            route();
+        })
+    </script>
+</body>
+</html>

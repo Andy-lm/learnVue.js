@@ -45,7 +45,7 @@ get groupedList(){
     .sort((a,b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
 
 
-    if(newList.length === 0) return [];
+    if(newList.length === 0) return [] as Result;
     const result:Result = [{title:dayjs(newList[0].createdAt).format('YYYY-MM-DD'),items:[newList[0]]}]
     for(let i = 1;i<newList.length;i++) {
         const current = newList[i];

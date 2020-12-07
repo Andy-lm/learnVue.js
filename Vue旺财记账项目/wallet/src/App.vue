@@ -16,5 +16,8 @@ body{
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+#app {
+  max-width:500px;
+  margin: 0 auto;
+}
 </style>

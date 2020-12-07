@@ -10,6 +10,7 @@ const store = new Vuex.Store({
     recordList: [],
     tagList:[],
     currentTag: undefined,
+    creatTagError:null,
     createRecordError:null
   } as RootState,
   mutations: {
@@ -32,17 +33,20 @@ const store = new Vuex.Store({
         store.commit('createTag', '食');
         store.commit('createTag', '住');
         store.commit('createTag', '行');
+        alert('已为您添加4个默认标签。');
       }
     },
     createTag(state,name) {
       const names = state.tagList.map(item => item.name);
+      state.creatTagError = null;
       if (names.indexOf(name) >= 0) {
-        window.alert('标签名重复了');
+        // window.alert('标签名重复了');
+        state.creatTagError = new Error('tag name duplicated');
+        return;
       }
       const id = createId().toString();
       state.tagList.push({id, name: name});
       store.commit('saveTags');
-      window.alert('添加成功');
     },
     saveTags(state) {
       window.localStorage.setItem('tagList', JSON.stringify(state.tagList));
