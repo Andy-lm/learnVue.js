@@ -41,7 +41,9 @@ export default {
             let currentIndex = ids.indexOf(id);
             let audioObj = document.querySelector('audio');
             audioObj.play();
+            // 先修改currentIndex，然后进行音乐播放
             this.setInitialCurrentIndex(currentIndex);
+
             this.setSongDetail(ids);
         },
         selectAllMusic(){
@@ -110,8 +112,8 @@ export default {
                 p {
                 margin-top: 10px;
                 @include font_color();
-                @include font_size(10Px);
-                opacity: 0.8;
+                @include font_size(20px);
+                opacity: 0.6;
                 }
             }   
             

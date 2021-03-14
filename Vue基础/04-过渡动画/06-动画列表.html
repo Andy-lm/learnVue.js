@@ -42,7 +42,7 @@
             注意：在Vue中只要数据一改变就会重新渲染一次 -->
         <transition-group appear tag="ul">
             <li v-for="(person,index) in persons" :key="person.id" @click="del(index)"><input type="checkbox"
-                    checked>{{index}}---{{person.name}}
+                checked>{{index}}---{{person.name}}
             </li>
         </transition-group>
     </div>

@@ -3,8 +3,8 @@ import Vue from 'vue'
 
 
 // axios.defaults.baseURL = 'http://127.0.0.1:3000/';
-axios.defaults.baseURL = 'http://121.196.185.199:3000/';
-axios.defaults.timeout = 5000;
+axios.defaults.baseURL = 'http://42.192.102.84:3000/';
+axios.defaults.timeout = 8000;
 let count = 0;
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {
@@ -25,7 +25,6 @@ axios.interceptors.response.use(function (response) {
     if (count === 0) {
         Vue.hiddenLoading();
     }
-    
     return response;
 }, function (error) {
     Vue.hiddenLoading();
@@ -38,7 +37,7 @@ axios.interceptors.response.use(function (response) {
 
 export default {
     // 封装我们的get与post方法
-    get: function (path = '', data = {}) {
+    get(path = '', data = {}) {
         return new Promise(function (resolve, reject) {
             axios.get(path, {
                 params: data
@@ -49,7 +48,7 @@ export default {
             })
         })
     },
-    post: function (path = '', data = {}) {
+    post(path = '', data = {}) {
         return new Promise(function (resolve, reject) {
             axios.post(path, data).then(function (response) {
                 resolve(response.data);

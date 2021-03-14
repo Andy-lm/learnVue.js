@@ -78,7 +78,6 @@ export default {
             console.log(error);
         })
         getNewSong().then((data) => {
-            // this.newsongs = data.result;
             let list = [];
             data.result.forEach((value) => {
                 let obj = {};
@@ -108,7 +107,6 @@ export default {
 
 <style scoped lang="scss">
     .recommend {
-        // overflow: hidden;
         position: fixed;
         top: 184px;
         left: 0;

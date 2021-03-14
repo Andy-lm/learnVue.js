@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // async function myAsyncFn(){
+        //     console.log('开始啦');
+        //     let p1 = new Promise(function(resolve,reject){
+        //         setTimeout(function(){
+        //             resolve('111111')
+        //         },1000)
+        //     })                
+        //     let a = await p1;
+        //     console.log(a);
+        //     let p2 = new Promise(function(resolve,reject){
+        //         setTimeout(function(){
+        //             reject('222222')
+        //         },1000)
+        //     })
+        //     let b = await p2;
+        //     console.log(a,b);    
+        //     return new Promise((res,rej) => {
+        //         res('完成了')
+        //     })        
+        // }
+        // myAsyncFn()
+        function myAsyncFn(){
+            return autoNext(function*(){
+                console.log('开始啦');
+                let p1 = new Promise(function(resolve,reject){
+                    setTimeout(function(){
+                        resolve('111111')
+                    },1000)
+                })                
+                let a = yield p1;
+                console.log(a);
+                let p2 = new Promise(function(resolve,reject){
+                    setTimeout(function(){
+                        resolve('222222')
+                    },1000)
+                })
+                let b = yield p2;
+                console.log(a,b);
+                return new Promise((res,rej) => {
+                    res('完成了')
+                })
+            })
+        }
+
+
+
+        myAsyncFn().then(data => {
+            console.log(data);
+        }).catch(err => {
+            console.log(err);
+        });
+
+
+
+        // function autoNext(genFn){
+        //     return new Promise(function(resolve,reject){
+        //         let gen = genFn();
+        //         function step(nextFn){
+        //             let next;
+        //             try{
+        //                 next = nextFn();
+        //             }catch(e) {
+        //                 return reject(e);
+        //             }
+        //             if(next.done) {
+        //                 return resolve(next.value)
+        //             }
+
+        //             Promise.resolve(next.value).then(data => {
+        //                 step(function(){
+        //                     return gen.next(data);
+        //                 })
+        //             },err => {
+        //                 step(function(){
+        //                     return gen.throw(err)
+        //                 })
+        //             })
+        //         }
+        //         step(function(){
+        //             return gen.next();
+        //         })
+        //     })
+        // }
+
+
+        function autoNext(genFn){
+            return new Promise(function(resolve,reject){
+                let gen = genFn(); // 调用传入的generator函数
+                function step(nextFn){
+                    let next;
+                    try{
+                        next = nextFn();
+                    }catch(e) {
+                        return reject(e);
+                    }
+                    if(next.done) {
+                        return resolve(next.value);
+                    }
+                    Promise.resolve(next.value).then(function(data){
+                        return step(function(){
+                            return gen.next(data);
+                        })
+                    },function(err){
+                        return step(function(){
+                            return gen.throw(err);
+                        })
+                    })
+                }
+                step(function(){
+                    return gen.next();
+                })
+            })
+        }
+
+
+
+    </script>
+</body>
+</html>

@@ -3,7 +3,7 @@
     <MainHeader></MainHeader>
     <Select></Select>
     <Tabbar></Tabbar>
-    <keep-alive include="Singer,Search">
+    <keep-alive include="Singer,Search,Rank,Recommend">
       <router-view></router-view>
     </keep-alive>
     <Player></Player>
@@ -14,7 +14,7 @@
 import MainHeader from "./components/MainHeader";
 import Tabbar from "./components/Tabbar";
 import Player from "./views/Player";
-import Select from "./components/Select"
+import Select from "./components/Select";
 export default {
   name: "App",
   components: {

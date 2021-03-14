@@ -5,6 +5,7 @@ export default {
     isShowListPlayer:false,
     isPlaying: false,
     modeType: mode.loop,
+    // 用来保存当前专辑里的所有歌曲，包括歌曲的信息与具体的URL
     songs: [],
     currentSong: {},
     currentIndex: 0,
@@ -13,5 +14,4 @@ export default {
     favoriteList:[],
     historyList: [],
     isShowSelect:false
-    
 }

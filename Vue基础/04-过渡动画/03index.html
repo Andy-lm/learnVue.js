@@ -39,9 +39,11 @@
     3.可以给transition标签添加name=""属性修改类名前缀 -->
     <div id='app'>
         <button @click="toggle">我是按钮</button>
-        <transition appear v-bind:css="false" v-on:before-enter="beforeEnter" v-on:enter="enter"
-            v-on:after-enter="afterEnter">
-            <div class="box" v-show="isShow"></div>
+        <transition appear v-bind:css="false" 
+        v-on:before-enter="beforeEnter" 
+        v-on:enter="enter"
+        v-on:after-enter="afterEnter">
+        <div class="box" v-show="isShow"></div>
         </transition>
     </div>
     <script>
@@ -67,6 +69,7 @@
                     setTimeout(function () {
                         done();
                     }, 0)
+                    
                 },
                 'afterEnter': function (el) {
                     console.log(3333);

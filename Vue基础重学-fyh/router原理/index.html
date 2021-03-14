@@ -10,7 +10,7 @@
         }
 
     </style>
-    <script src="./index.js"></script>
+    
 </head>
 <body>
     <a href="#1">显示1</a>
@@ -25,8 +25,43 @@
     <div id="page3">3</div>
     <div id="page4">4</div>
     <div id="page404">404 Not Found</div>
+
     <script>
+        // 获取所有的页面
+        let page1 = document.querySelector('#page1');
+        let page2 = document.querySelector('#page2');
+        let page3 = document.querySelector('#page3');
+        let page4 = document.querySelector('#page4');
+        // 建立hash表
+        const routeTable = {
+            '1': page1,
+            '2': page2,
+            '3': page3,
+            '4': page4
+        }
+
+        
+        function route() {
+            // 获取当前hash
+            let number = window.location.hash.slice(1);
+            number = number || 1;
+            // 根据hash拿到当前页面
+            let page = routeTable[number.toString()];
+            page = page || document.querySelector('#page404');
+            page.style.display = 'block';
+            // 拿到容器
+            let app = document.querySelector('#app');
+            if(app.children.length > 0) {
+                app.innerHTML = '';
+            }
+            // 渲染页面
+            app.appendChild(page);
+        }
+
+
+        // 初始渲染主页面
         route();
+        // 监听hash的变化
         window.addEventListener('hashchange',function(){
             route();
         })

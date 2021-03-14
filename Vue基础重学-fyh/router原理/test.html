@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class EventBus{
+            constructor(){
+                this.cache = {};
+            }
+
+            on(type,handle){
+                if(this.cache[type] === undefined) {
+                    this.cache[type] = [];
+                }
+                this.cache[type].push(handle);
+            }
+
+            once(type,handle){
+                if(this.cache[type] === undefined) {
+                    this.cache[type] = [];
+                }
+                handle.isOnce = true;
+                this.cache[type].push(handle);
+            }
+
+
+
+            submit(type,data){
+                if(this.cache[type]) {
+                    this.cache[type].forEach(handle => {
+                        if(handle.isOnce && handle.isRun === undefined) {
+                            handle(data);
+                            handle.isRun = true;
+                        }else if(handle.isOnce === undefined){
+                            handle(data);
+                        }
+                    })
+                }
+            }
+
+            off(type,handle){
+                if(this.cache[type]) {
+                    if(!handle) {
+                        delete this.cache[type]
+                    }else {
+                        let index = this.cache[type].indexOf(handle);
+                        this.cache[type].splice(index,1);
+                    }
+                }
+            }
+        }
+
+        let eventBus = new EventBus();
+        eventBus.on('click',function(e){
+            console.log('按钮点击了1'+e.target);
+        })
+        eventBus.once('click',function(e){
+            console.log('按钮点击了2'+e.target);
+        })
+        e = {
+            target:'btn'
+        }
+        setTimeout(function(){
+            eventBus.submit('click',e);
+            // eventBus.off('click')
+        },1000)
+
+        setTimeout(function(){
+            eventBus.submit('click',e);
+        },2000)
+    </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="box"></div>
+    <script>
+        // let oBox = document.querySelector('.box');
+        // const andyevent = new Event('andyEvent')
+        // window.addEventListener('andyEvent',function(){
+        //     console.log('andy创建的事件触发了');
+        // })
+        // setTimeout(function(){
+        //     window.dispatchEvent(andyevent);
+        // },1000)
+        
+        // function addStateListener(type){
+        //     let originEvent = history[type];
+        //     return function(){
+        //         let newEvent = originEvent.apply(this,arguments);
+        //         let targetEvent = new Event(type);
+        //         targetEvent.arguments = arguments;
+        //         window.dispatchEvent(targetEvent);
+        //         return newEvent;
+        //     }
+        // }
+
+        // window.history.pushState = addStateListener('pushState');
+
+        // window.addEventListener('popstate',function(e){
+        //     console.log(location.pathname);
+        // })
+
+        // history.pushState(null,null,'#333')
+
+        // history.pushState(null,null,'#333');
+        // window.addEventListener('popstate',function(){
+        //     console.log(location.pathname);
+        // })
+        // setTimeout(function(){
+        //     history.back();
+        // },1000)
+        
+        // 重写pushState与replaceState方法
+        function addStateListener(){
+            function listener(type){
+                let origin = history[type];
+                return function(){
+                    let newOrigin = origin.apply(this,arguments);
+                    let stateEvent = new Event(type);
+                    stateEvent.arguments = arguments;
+                    window.dispatchEvent(stateEvent);
+                    return newOrigin;
+                }
+            }
+            history.pushState = listener('pushState');
+            history.replaceState = listener('replaceState');
+        }
+        addStateListener()
+        // 监听pushState与replaceState
+        window.addEventListener('pushState',function(e){
+            console.log(location.pathname);
+            console.log(e.arguments[2]);
+        })
+        window.addEventListener('replaceState',function(e){
+            console.log(location.pathname);
+            console.log(e.arguments[2]);
+        })
+        // 使用pushState与replaceState修改URL
+        history.pushState(null,null,'#333')
+        history.replaceState(null,null,'#666')
+    </script>
+</body>
+</html>

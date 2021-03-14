@@ -1,13 +1,13 @@
 <template>
     <ul class="select-head" v-show="isShowSelect">
         <li @click.stop="accountClick">播放历史</li>
-        <li @click.stop="changeTheme">
+        <li @click.stop="changeTheme1">
             <div class="theme"></div>
             默认主题
         </li>
-        <li @click.stop="changeTheme1">
+        <li @click.stop="changeTheme">
             <div class="theme1"></div>
-            流年主题
+            青绿主题
         </li>
         <li @click.stop="changeTheme2">
             <div class="theme2"></div>
@@ -84,16 +84,15 @@ import {mapGetters,mapActions} from "vuex"
                 top: 0;
                 left: 20px;
                 bottom: 0;
-                // right: 0;
                 margin: auto;
                 width: 30px;
                 height: 30px;
-                background: radial-gradient(circle at 10% 20%, rgb(43, 194, 57) 0%, rgb(149, 250, 113) 90%);
+                background: radial-gradient(circle at 12.3% 19.3%, rgb(85, 88, 218) 0%, rgb(95, 209, 249) 100.2%);
                 border-radius: 50%;
                 
             }
             .theme1 {
-                background: radial-gradient(circle at 12.3% 19.3%, rgb(85, 88, 218) 0%, rgb(95, 209, 249) 100.2%);
+                background: radial-gradient(circle at 10% 20%, rgb(43, 194, 57) 0%, rgb(149, 250, 113) 90%);
             }
             .theme2 {
                 background:#333;

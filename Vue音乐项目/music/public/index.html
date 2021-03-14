@@ -10,8 +10,7 @@
     <!--为了让 IE 浏览器运行最新的渲染模式下-->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>FANTA Music</title>
-    <meta name="keywords"
-        content="FANTA Music">
+    <meta name="keywords" content="FANTA Music">
     <meta name="description" content="FANTA Music">
     <!-- 网页快捷图标 -->
     <link rel="shortcut icon" href="favicon.ico">
@@ -26,10 +25,14 @@
       let text = `<meta name="viewport" content="width=device-width, initial-scale=${scale}, maximum-scale=${scale}, minimum-scale=${scale}, user-scalable=no">`;
       document.write(text);
       document.documentElement.style.fontSize = window.innerWidth / 7.5 + "px";
-      // 在移动端字体是不随屏幕而改变的，所以这里通过获取屏幕的物理像素比来修改字体的大小
       document.documentElement.setAttribute('data-dpr', parseInt(window.devicePixelRatio) + '');
       // 设置默认主题
-      document.documentElement.setAttribute("data-theme", 'theme');
+      document.documentElement.setAttribute("data-theme", 'theme1');
+    //   var ua = navigator.userAgent.toLowerCase();
+    //   var isWeixin = ua.indexOf('micromessenger') != -1;
+    // if (isWeixin) {
+    //   alert('由于微信浏览器的限制可能导致页面字体偏小，我们更加建议您使用其他浏览器打开来获得更好的显示效果。')
+    // }
     </script>
   </head>
   <body>

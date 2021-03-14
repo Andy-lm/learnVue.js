@@ -18,9 +18,7 @@ export default {
     name:"Personalized",
     methods:{
         selectItem(id) {
-            // console.log(id);
             // 子组件调用父组件的方法，传递数据进去，由父组件切换路由地址
-            // console.log(id);
             this.$emit('select',id,this.type);
         }
     },

@@ -42,7 +42,6 @@ export default {
     // metaInfo:MetaInfo.singer,
     created(){
         getAllArtist().then((result) => {
-            // console.log(result);
             this.keys = result.keys;
             this.list = result.list;
         }).catch(function(err){
@@ -67,8 +66,6 @@ export default {
         touchmove(e){
             this.moveOffsetY = e.touches[0].pageY;
             let offsetY = (this.moveOffsetY - this.beginOffsetY) / e.target.offsetHeight;
-            // console.log(this.beginOffsetY,this.moveOffsetY,e.target.offsetHeight,offsetY)
-
             let index = parseInt(e.target.dataset.index) + Math.floor(offsetY);
             if(index < 0) {
                 index = 0;

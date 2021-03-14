@@ -3,9 +3,9 @@
     <!-- slides -->
     <swiper-slide class="cd">
         <div class="cd-container" ref="cdContainer">
-            <img :src="currentSong.picUrl" alt="">
+            <img v-lazy="currentSong.picUrl" alt="">
         </div>
-        <p><< 右滑查看歌词 <<</p>
+        <p><< 左滑查看歌词 <<</p>
     </swiper-slide>
     <swiper-slide class="lyric" ref="lyric">
         <ScrollView ref="scrollView">
@@ -49,11 +49,6 @@ export default {
         ScrollView
     },
     methods:{
-        // getFirstLyric(){
-        //     for(let k in this.currentLyric) {
-        //         return this.currentLyric[k]
-        //     }
-        // },
         getActiveLineNum(lineNum){
             if(lineNum < 0) {
                 return this.currentLineNum;
@@ -110,8 +105,6 @@ export default {
             this.currentLineNum = this.getActiveLineNum(lineNum);
             if(document.querySelector('li.active') !== null) {
                 let currentLyricTop = document.querySelector('li.active').offsetTop
-                // console.log(document.querySelector('li.active'));
-                // console.log(currentLyricTop);
                 // 容器的高度
                 let lyricHeight = this.$refs.lyric.$el.offsetHeight;
                 if(currentLyricTop >= lyricHeight/2) {

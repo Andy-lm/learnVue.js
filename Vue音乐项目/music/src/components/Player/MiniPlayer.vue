@@ -6,7 +6,7 @@
     <div class="mini-player" v-show="this.isShowMiniPlayer">
         <div class="player-container">
             <div class="player-left" @click="showNormalPlayer">
-                <img :src="currentSong.picUrl" alt="" ref="miniCd">
+                <img v-lazy="currentSong.picUrl" alt="" ref="miniCd">
                 <div class="player-title">
                     <h3>{{currentSong.name}}</h3>
                     <p>{{currentSong.singer}}</p>

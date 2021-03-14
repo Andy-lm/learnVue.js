@@ -49,23 +49,12 @@
 </head>
 
 <body>
-    <!--
-        1.如何给Vue控制的元素添加过渡动画
-        1.1将需要执行动画的元素放到transition组件中
-        1.2当transition组件中的元素显示时会自动查找.v-enter/.v-enter-active/.v-enter-to类名
-        当transition组件中的元素隐藏时会自动查找.v-leave/ .v-leave-active/.v-leave-to类名
-        1.3我们只需要在.v-enter和.v-leave-to中指定动画动画开始的状态
-        在.v-enter-active和.v-leave-active中指定动画执行的状态
-        即可完成过渡动画
-    -->
     <div id='app'>
         <button @click="toggle">我是按钮</button>
         <transition appear name="one">
-            <!-- transition这个组件可以控制内部元素的动画效果 -->
             <div class="box" v-show="isShow"></div>
         </transition>
         <transition appear name="two">
-            <!--transition这个组件可以控制内部元素的动画效果 -->
             <div class="box" v-show="isShow"></div>
         </transition>
     </div>

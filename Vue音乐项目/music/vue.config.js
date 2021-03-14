@@ -39,7 +39,7 @@ module.exports = {
   //     postProcess: route => {
   //       // 预渲染内容写入之前的额外操作
   //       let reg = /<meta name="viewport".*user-scalable=no">/gi
-  //       let res = route.html.match(reg)
+  //       let res = route.html.match(reg);
   //       route.html = route.html.replace(res[1], '')
 
   //       // 1.根据字符串创建一个网页

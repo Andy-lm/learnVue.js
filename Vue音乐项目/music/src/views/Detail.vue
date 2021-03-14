@@ -2,12 +2,14 @@
     <div class="detail">
         <SubHeader :title="playlist.name"></SubHeader>
         <DetailTop :path="playlist.coverImgUrl" ref="top"></DetailTop>
-            <div class="bottom">
-                <ScrollView ref="scrollview">
-                    <DetailBottom :playlist="playlist.tracks"></DetailBottom>
-                    
-                </ScrollView>
+            <div class="bottom-wrap">
+                <div class="bottom">
+                    <ScrollView ref="scrollview">
+                        <DetailBottom :playlist="playlist.tracks"></DetailBottom>
+                    </ScrollView>
+                </div>
             </div>
+
     </div>
 </template>
 
@@ -24,21 +26,19 @@ export default {
     // metaInfo:MetaInfo.detail,
     data(){
         return {
-            playlist:{}
+            playlist:{},
         }
     },
     created:function(){
         if(this.$route.params.type === 'personalized') {
             getPlayList({id: this.$route.params.id}).then((data) => {
-            // console.log(data);
                 this.playlist = data.playlist
-                // console.log(this.playlist);
+                
             }).catch((err) => {
                 console.log(err);
             })
         }else if(this.$route.params.type === 'album') {
             getAlbum({id: this.$route.params.id}).then((data) => {
-            // console.log(data);
                 // this.playlist = data.playlist
                 this.playlist = {
                     name:data.album.name,
@@ -112,16 +112,21 @@ export default {
         bottom: 0;
         @include bg_sub_color();
         // background-color: aqua;
-        .bottom {
-            position: fixed;
-            top: 500px;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            .bin {
+        .bottom-wrap {
+                position: fixed;
+                top: 500px;
+                left: 0;
+                right: 0;
+                bottom: 0;
+            .bottom {
                 width: 100%;
-                height: 555px;
+                height: 100%;
+                .bin {
+                    width: 100%;
+                    height: 555px;
+                }
             }
         }
+
     }
 </style>

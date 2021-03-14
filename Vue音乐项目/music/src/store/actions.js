@@ -46,7 +46,6 @@ export default {
         result.songs.forEach((value,i) => {
             let obj = {};
             obj.name = value.name;
-            // obj.url = urls.data[i].url;
             for (let j = 0; j < urls.data.length; j++) {
                 let item = urls.data[j];
                 if (item.id === value.id) {

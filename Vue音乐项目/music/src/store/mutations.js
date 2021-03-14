@@ -10,6 +10,7 @@ import {
     SET_CURRENT_INDEX,
     SET_CURRENT_TIME,
     SET_FAVORITE_SONG,
+    REMOVE_FAVORITE_SONG,
     SET_FAVORITE_LIST,
     SET_HISTORY_LIST,
     SET_HISTORY_SONG,
@@ -87,6 +88,15 @@ export default {
         if (result === undefined) {
             state.favoriteList.push(song);
         }
+    },
+    [REMOVE_FAVORITE_SONG](state, song) {
+        let target = null;
+        state.favoriteList.forEach(item => {
+            if (item.id === song.id) {
+                target = item;
+            }
+        })
+        state.favoriteList.splice(target, 1);
     },
     [SET_FAVORITE_LIST](state, list) {
         state.favoriteList = list;

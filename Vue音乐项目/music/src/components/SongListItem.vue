@@ -2,7 +2,6 @@
     <div class="song-listitem">
         <ul class="song-list">
             <li class="item" v-for="value in newsongs" :key="value.id" @click="selectMusic(value.id)">
-                <!-- <img :src="value.picUrl"> -->
                 <img v-lazy="value.picUrl">
                 <div class="song-title">
                     <h3>{{value.name}}</h3>
@@ -33,7 +32,7 @@ export default {
       this.setFullScreen(true)
       let audioObj = document.querySelector('audio');
       audioObj.play();
-      this.setSongDetail([id])
+      this.setSongDetail([id]);
     }
   }
 }

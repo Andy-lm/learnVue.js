@@ -5,7 +5,6 @@
             <AccountBottom :switchNum="switchNum"></AccountBottom>
         </div>
     </transition>
-    
 </template>
 
 <script>

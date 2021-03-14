@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import {mapActions,mapGetters} from "vuex";
+import {mapActions,mapGetters,mapMutations} from "vuex";
 import modeType from '../../store/modeType';
 import {formartTime, getRandomIntInclusive} from '../../tools/tools';
 import mode from "@/store/modeType"
@@ -36,6 +36,9 @@ export default {
             'setCurrentTime',
             'setFavoriteSong',
             
+        ]),
+        ...mapMutations([
+            'REMOVE_FAVORITE_SONG'
         ]),
         progressClick(e){
             // 设置进度条
@@ -84,7 +87,12 @@ export default {
             }
         },
         favorite(){
-            this.setFavoriteSong(this.currentSong);
+            if(this.isFavorite(this.currentSong)) {
+                this.REMOVE_FAVORITE_SONG(this.currentSong);
+            }else {
+                this.setFavoriteSong(this.currentSong);
+            }
+            
         },
         isFavorite(song){
             let result =  this.favoriteList.find(function(currentValue){
@@ -130,7 +138,7 @@ export default {
         },
         currentTime(newValue,oldValue){
             let time = formartTime(newValue);
-            this.$refs.eleCurrentTime.innerHTML = time.minute + ':' + time.second
+            this.$refs.eleCurrentTime.innerHTML = time.minute + ':' + time.second;
             let value = newValue / this.totalTime * 100;
             this.$refs.progressLine.style.width = value + "%";
         }

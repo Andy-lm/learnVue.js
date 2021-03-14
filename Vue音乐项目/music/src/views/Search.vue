@@ -73,11 +73,9 @@ export default {
         ]),
         search(){
             if(this.keywords === ''){
-                // console.log('11111');
                 return;
             }
             getSearchList({'keywords':this.keywords}).then((data) =>{
-                // console.log(data);
                 this.songs = data.result.songs;
             }).catch(function(err){
                 console.log(err);
@@ -106,24 +104,26 @@ export default {
         }
     },
     directives: {
-    throttle: {
+    'throttle': {
       // 指令的定义
       // 节流函数在Vue中一般采用自定义指令来使用
       inserted: function (el, obj) {
-        let timerId = null
         let flag = true
         el.addEventListener('input', function () {
           if (!flag) return
           flag = false
-          timerId && clearTimeout(timerId)
-          timerId = setTimeout(function () {
+          el.timerId && clearTimeout(el.timerId)
+          
+          el.timerId = setTimeout(function () {
             flag = true
-            obj.value()
+            obj.value();
+            el.timerId = null
           }, 1000)
         })
       }
     }
   },
+
 }
 </script>
 

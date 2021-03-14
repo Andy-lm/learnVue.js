@@ -11,8 +11,6 @@ html, body{
 }
 body{
   @include font_size($font_medium);
-  // @include font_size(50px);
-  //font-size: 50px;
   font-family: Helvetica,sans-serif,STHeiTi;
 }
 img{

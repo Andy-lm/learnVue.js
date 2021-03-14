@@ -45,7 +45,6 @@ export default {
         ]),
         timeupdate(e){
             this.currentTime = e.target.currentTime;
-            // console.log (this.currentTime)
         },
         end(){
             // 当歌曲播放完成后执行这个函数
@@ -67,8 +66,6 @@ export default {
     },
     watch:{
         currentSong(newValue,oldValue){
-            // console.log(this.$store.state.songs);
-            // console.log(newValue);
             if(newValue.name === ''){
                 if(this.$store.state.songs.length === 0){
                     this.setFullScreen(false);
@@ -83,21 +80,17 @@ export default {
                 return
             }
             this.$refs.audio.ondurationchange = () => {
-                // console.log('currentSong变化1');
                 this.totalTime = this.$refs.audio.duration;
                 this.setHistorySong(this.currentSong);
                 this.setIsPlaying(true);
                 this.$refs.audio.play();
             }
-            // console.log('currentSong变化2');
         },
         isPlaying(newValue,oldValue){
             if(newValue){
-                // console.log('play()');
                 this.setHistorySong(this.currentSong);
                 this.$refs.audio.play();
             }else {
-                // console.log('pause()');
                 this.$refs.audio.pause();
             }
         },
@@ -107,8 +100,6 @@ export default {
             // 所以最终的解决办法就是使用ondurationchange替代
             // this.$refs.audio.oncanplay = () => {
             this.$refs.audio.ondurationchange = () => {
-                // currentIndex变化了
-                // console.log('currentIndex变化了');
                 this.totalTime = this.$refs.audio.duration;
                 if(this.isPlaying) {
                     this.setHistorySong(this.currentSong);
@@ -144,7 +135,6 @@ export default {
         this.setHistoryList(historyList);
     },
     mounted(){
-        // this.$refs.audio.oncanplay = () => {
             this.$refs.audio.ondurationchange = () => {
             this.totalTime = this.$refs.audio.duration
         }

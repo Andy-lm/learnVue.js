@@ -1,7 +1,7 @@
 <template>
     <div class="detail-top">
         <div class="img-container">
-            <img :src="path" alt="">
+            <img v-lazy="path" alt="">
             <div class="mask" ref="mask">
             </div>
         </div>

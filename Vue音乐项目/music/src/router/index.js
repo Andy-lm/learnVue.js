@@ -1,9 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import Recommend from '../views/Recommend'
-// import Rank from '../views/Rank'
-// import Singer from '../views/Singer'
-// import Search from '../views/Search'
+
 // 实现异步按需加载
 const Recommend = (resolve) => {
   import('../views/Recommend').then(function(module) {
@@ -15,7 +12,6 @@ const Detail = (resolve) => {
     resolve(module);
   })
 }
-
 
 const Rank = (resolve) => {
   import('../views/Rank').then(function(module) {
